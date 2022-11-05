@@ -1,14 +1,17 @@
-import { Box, Flex } from "@chakra-ui/react";
+import { Flex } from "@chakra-ui/react";
 import { useCallback, useMemo, useState } from "react";
-import { PlayerOverview } from "./components/player-overview";
-import { SelectedPlayers } from "./components/selected-players";
+import { PlayerOverview } from "./components/player-overview/player-overview";
+import { SelectedPlayers } from "./components/selected-players/selected-players";
 import { Player, playerCanBeSelected } from "./contracts";
 import { PlayerSelectionContext } from "./player-selection-context";
 import './app.css';
+import { InactivePlayers } from "./components/inactive-players/inactive-players";
 
 function App() {
 
   const [selectedPlayers, setSelectedPlayers] = useState<Array<Player>>([]);
+  const [inactivePlayers, setInactivePlayers] = useState<Array<Player>>([]);
+
   const addPlayer = useCallback((player: Player) => {
     setSelectedPlayers((selectedPlayers) => {
       if (!playerCanBeSelected(selectedPlayers, player)) {
@@ -27,13 +30,38 @@ function App() {
     })
   }, []);
 
+  const makePlayerInactive = useCallback((player: Player) => {
+    removePlayer(player);
+    setInactivePlayers((inactivePlayers) => {
+      const alreadyInactivePlayers = inactivePlayers.find((inactivePlayer) => {
+        return inactivePlayer.number === player.number;
+      })
+      if (alreadyInactivePlayers !== undefined) {
+        return inactivePlayers
+      }
+
+      return [...inactivePlayers, player];
+    })
+  }, [removePlayer]);
+  
+  const makePlayerActive = useCallback((player: Player) => {
+    setInactivePlayers((inactivePlayers) => {
+      return inactivePlayers.slice(0).filter((inactivePlayer) => {
+        return inactivePlayer.number !== player.number
+      })
+    })
+  }, []);
+
   const playerSelectionContext = useMemo(() => {
     return {
       selectedPlayers: selectedPlayers,
+      inactivePlayers: inactivePlayers,
+      makePlayerActive: makePlayerActive,
+      makePlayerInactive: makePlayerInactive,
       addPlayer: addPlayer,
       removePlayer: removePlayer,
     }
-  }, [addPlayer, removePlayer, selectedPlayers]);
+  }, [addPlayer, inactivePlayers, makePlayerActive, makePlayerInactive, removePlayer, selectedPlayers]);
 
   return (
     <Flex width="100%" height="100vh" justifyContent="center" alignItems="center">
@@ -47,12 +75,12 @@ function App() {
         maxHeight="1200px"
         overflow="auto"
         direction="column"
+        userSelect="none"
       >
         <PlayerSelectionContext.Provider value={playerSelectionContext}>
+          <InactivePlayers />
           <PlayerOverview />
-          <Box position="sticky" bottom="0">
-            <SelectedPlayers />
-          </Box>
+          <SelectedPlayers />
         </PlayerSelectionContext.Provider>
       </Flex>
     </Flex>

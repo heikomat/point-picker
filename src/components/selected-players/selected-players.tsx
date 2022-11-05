@@ -1,6 +1,6 @@
-import { Box, Flex, Grid } from "@chakra-ui/react";
+import { Box, Flex } from "@chakra-ui/react";
 import { memo, ReactElement, useContext, useMemo } from "react";
-import { PlayerSelectionContext } from "../player-selection-context";
+import { PlayerSelectionContext } from "../../player-selection-context";
 import { SelectedPlayer } from "./selected-player";
 
 

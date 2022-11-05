@@ -1,7 +1,7 @@
 import { Flex } from "@chakra-ui/react";
 import { memo, ReactElement, useCallback } from "react";
-import { Player } from "../contracts";
-import { PlayerPicture } from "./player-picture";
+import { Player } from "../../contracts";
+import { PlayerPicture } from "../player-picture";
 
 type Props = {
   player: Player;

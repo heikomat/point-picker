@@ -29,9 +29,10 @@ const PlayerPictureComponent = (props: Props): ReactElement => {
         backgroundColor="blue"
         paddingX="3px"
         fontSize="12px"
-        bottom="0px"
+        top="0px"
+        right="0px"
         position="absolute"
-        borderRadius="2px"
+        borderBottomLeftRadius="3px"
         color="white"
       >
         {`#${player.number}`}

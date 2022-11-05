@@ -1,0 +1,28 @@
+import { Collapse, Flex, Grid, useDisclosure } from "@chakra-ui/react";
+import { memo, ReactElement, useContext } from "react";
+import { PlayerSelectionContext } from "../../player-selection-context";
+import { OverviewPlayer } from "../player-overview/overview-player";
+
+const playerWidth = 50;
+
+const InactivePlayersComponent = (): ReactElement => {
+  const {inactivePlayers, makePlayerActive} = useContext(PlayerSelectionContext);
+  const { isOpen, onToggle } = useDisclosure()
+
+  return (
+      <Flex width="100%" padding="12px" paddingBottom="0" onClick={onToggle}>
+        <Flex direction="column" width="100%" border="1px solid #cecece" borderRadius="5px" padding="5px"  backgroundColor="gray.200">
+          <Flex justifyContent="start" fontWeight="bold" width="100%">{`Inaktiv (${inactivePlayers.length})`}</Flex>
+            <Collapse in={isOpen} animateOpacity>
+              <Grid templateColumns={`repeat(auto-fit, ${playerWidth}px)`} gap="8px" width="100%" alignItems="start">
+                {inactivePlayers.map((player) => {
+                  return <OverviewPlayer playerWidth={playerWidth} key={player.number} player={player} onLongPress={makePlayerActive} />
+                })}
+            </Grid>
+          </Collapse>
+        </Flex>
+      </Flex>
+  );
+};
+
+export const InactivePlayers = memo(InactivePlayersComponent);

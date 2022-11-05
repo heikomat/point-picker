@@ -138,7 +138,7 @@ export const players: Array<Player> = [{
   ...getPointInfo(4.5, [])
 }, {
   isDisabled: false,
-  number: 15,
+  number: 10,
   image: anna,
   ...getName('Anna', 'von Bartlick'),
   ...getPointInfo(4.5, [Bonus.Woman])
