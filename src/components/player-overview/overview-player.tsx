@@ -52,7 +52,7 @@ const OverviewPlayerComponent = (props: Props): ReactElement => {
       {...bind()}
     >
       <Box opacity={displayDisabled ? 0.5 : 1}>
-        <PlayerPicture player={player} isSelected={isSelected} />
+        <PlayerPicture player={player} />
         {player.displayName}
       </Box>
       

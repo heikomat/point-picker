@@ -11,6 +11,8 @@ import johannes from '../assets/johannes.jpg';
 import heiko from '../assets/heiko.jpg';
 import jakobus from '../assets/jakobus.jpg';
 import philippe from '../assets/philippe.jpg';
+import linda from '../assets/linda.jpg';
+import jill from '../assets/jill.jpg';
 
 export const maxBonusPoints = 2;
 
@@ -142,6 +144,18 @@ export const players: Array<Player> = [{
   image: anna,
   ...getName('Anna', 'von Bartlick'),
   ...getPointInfo(4.5, [Bonus.Woman])
+}, {
+  isDisabled: true,
+  number: 9,
+  image: linda,
+  ...getName('Linda', 'Hövel'),
+  ...getPointInfo(3, [Bonus.Woman, Bonus.Beginner])
+}, {
+  isDisabled: true,
+  number: 8,
+  image: jill,
+  ...getName('Jill', 'Kaiser-Föhles'),
+  ...getPointInfo(3.5, [Bonus.Woman])
 }].sort((player1, player2) => {
   if (player1.displayName > player2.displayName) {
     return 1;
