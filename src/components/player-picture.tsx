@@ -12,6 +12,8 @@ const imageStyle = {
 
 const PlayerPictureComponent = (props: Props): ReactElement => {
   const {player} = props;
+
+  // TODO: numbers have spacing to bottom. remove it
   return (
     <Box
       backgroundImage={player.image}
