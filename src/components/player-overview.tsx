@@ -50,6 +50,9 @@ const PlayerOverviewComponent = (): ReactElement => {
     }
   }, [addPlayer, removePlayer, selectablePlayerNumbers, selectedPlayerNumbers]);
 
+
+  // TODO: make number-groups only as large as necessary
+
   return (
     <Flex direction="row" flexGrow="1" width="100%" padding="12px" flexWrap="wrap" gap="8px">
       {playersByPointsArray.map(([points, players]) => {
