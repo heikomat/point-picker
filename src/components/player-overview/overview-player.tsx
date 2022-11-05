@@ -1,4 +1,4 @@
-import { Flex } from "@chakra-ui/react";
+import { Box, Flex } from "@chakra-ui/react";
 import { memo, ReactElement, useCallback } from "react";
 import { Player } from "../../contracts";
 import { PlayerPicture } from "../player-picture";
@@ -9,13 +9,21 @@ type Props = {
   onClick?: (player: Player) => void;
   onLongPress?: (player: Player) => void;
   displayDisabled?: boolean;
-  playerWidth?: number
+  playerWidth?: number;
+  isSelected?: boolean;
 }
 
 export const overviewPlayerWidth = 70;
 
 const OverviewPlayerComponent = (props: Props): ReactElement => {
-  const {player, onClick, displayDisabled, onLongPress, playerWidth = overviewPlayerWidth} = props;
+  const {
+    player,
+    onClick,
+    displayDisabled,
+    onLongPress,
+    playerWidth = overviewPlayerWidth,
+    isSelected = false,
+  } = props;
 
   const handleClick = useCallback(() => {
     onClick?.(player);
@@ -38,13 +46,32 @@ const OverviewPlayerComponent = (props: Props): ReactElement => {
       textAlign="center"
       fontSize={fontSize}
       whiteSpace="nowrap"
-      opacity={displayDisabled ? 0.5 : 1}
       onClick={handleClick}
       flexGrow="1"
+      position="relative"
       {...bind()}
     >
-      <PlayerPicture player={player} />
-      {player.displayName}
+      <Box opacity={displayDisabled ? 0.5 : 1}>
+        <PlayerPicture player={player} isSelected={isSelected} />
+        {player.displayName}
+      </Box>
+      
+      {isSelected && (
+        <Box
+          fontSize="42px"
+          fontWeight="bold"
+          bottom="18px"
+          left="0"
+          top="0"
+          lineHeight={`${overviewPlayerWidth}px`}
+          width="100%"
+          position="absolute"
+          textShadow="0px 0px 10px rgb(255 255 255)"
+          color="green.500"
+        >
+          {`✓`}
+        </Box>
+      )}
     </Flex>
   );
 };

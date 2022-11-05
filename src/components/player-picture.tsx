@@ -4,6 +4,7 @@ import { Player } from "../contracts";
 
 type Props = {
   player: Player
+  isSelected?: boolean
 }
 
 const imageStyle = {
@@ -11,7 +12,7 @@ const imageStyle = {
 }
 
 const PlayerPictureComponent = (props: Props): ReactElement => {
-  const {player} = props;
+  const {player, isSelected = false} = props;
 
   // TODO: numbers have spacing to bottom. remove it
   return (

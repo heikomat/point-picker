@@ -79,7 +79,9 @@ function App() {
       >
         <PlayerSelectionContext.Provider value={playerSelectionContext}>
           <InactivePlayers />
-          <PlayerOverview />
+          <Flex grow="1" minHeight="0">
+            <PlayerOverview />
+          </Flex>
           <SelectedPlayers />
         </PlayerSelectionContext.Provider>
       </Flex>

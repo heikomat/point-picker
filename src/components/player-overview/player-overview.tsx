@@ -1,6 +1,6 @@
 import { Player, playerCanBeSelected, players } from "../../contracts";
-import { memo, ReactElement, useCallback, useContext, useMemo } from "react";
-import { Flex, Grid } from "@chakra-ui/react";
+import { memo, ReactElement, useCallback, useContext, useEffect, useMemo, useState } from "react";
+import { Box, Flex, Grid } from "@chakra-ui/react";
 import { OverviewPlayer, overviewPlayerWidth } from "./overview-player";
 import { PlayerSelectionContext } from "../../player-selection-context";
 
@@ -66,34 +66,44 @@ const PlayerOverviewComponent = (): ReactElement => {
   }, [addPlayer, removePlayer, selectablePlayerNumbers, selectedPlayerNumbers]);
 
 
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   // TODO: make number-groups only as large as necessary
-  const currentWidth = Math.min(window.innerWidth, 500) - 16;
-  const fittingPlayers = Math.floor(currentWidth/(overviewPlayerWidth + 24));
+  useEffect(() => {
+    const updateWindowWidth = () => {
+      setWindowWidth(window.innerWidth);
+    };
+    window.addEventListener('resize', updateWindowWidth);
+    return (): void => {
+      window.removeEventListener('resite', updateWindowWidth);
+    }
+  });
+
+  const currentWidth = Math.min(windowWidth, 500) - 16;
+  const fittingPlayers = Math.floor(currentWidth/(overviewPlayerWidth + 32));
   const singleColumnWidth = 100/fittingPlayers;
   const multiColumnWidth = 200/fittingPlayers;
 
   let remainingColumns = fittingPlayers;
-  console.log('fittingPlayers', fittingPlayers)
 
   return (
-    <Flex direction="row" flexGrow="1" width="100%" padding="12px" flexWrap="wrap" gap="12px">
+    <Flex direction="row" width="100%" padding="12px" paddingTop="0" flexWrap="wrap" gap="12px"  overflow="auto">
       {playersToRender.map(([points, players]) => {
         
         const columnsToOccupy = Math.min(players.length, 2, remainingColumns);
-        const width = columnsToOccupy === 1 ? singleColumnWidth : multiColumnWidth;
-        console.log(columnsToOccupy, width)
+        const blockWidth = columnsToOccupy === 1 ? singleColumnWidth : multiColumnWidth;
+
         remainingColumns = remainingColumns - columnsToOccupy;
         if (remainingColumns <= 0) {
           remainingColumns = fittingPlayers
         }
 
         return (
-          <Flex key={points} direction="column" width={`calc(${width}% - 9px)`} border="1px solid #cecece" borderRadius="5px" padding="5px">
+          <Flex key={points} direction="column" width={`calc(${blockWidth}% - 9px)`} backgroundColor="gray.100" boxShadow="1px 1px 3px 0px #c0c0c0" borderRadius="5px" padding="5px" gap="8px" >
             <Flex justifyContent="start" fontWeight="bold" width="100%">{points + ' Pt.'}</Flex>
-              <Grid templateColumns={`repeat(auto-fit, ${overviewPlayerWidth}px)`} gap="8px" width="100%" alignItems="start">
-                {players.map((player) => {
-                  return <OverviewPlayer key={player.number} player={player} onClick={handlePlayerClick} displayDisabled={!selectablePlayerNumbers.has(player.number)} onLongPress={makePlayerInactive}/>
-                })}
+            <Grid templateColumns={`repeat(${columnsToOccupy}, 1fr)`} rowGap="8px" alignItems="start" justifyItems="center">
+              {players.map((player) => {
+                return <OverviewPlayer key={player.number} player={player} onClick={handlePlayerClick} displayDisabled={!selectablePlayerNumbers.has(player.number)} onLongPress={makePlayerInactive} isSelected={selectedPlayerNumbers.has(player.number)}/>
+              })}
             </Grid>
           </Flex>
         )
