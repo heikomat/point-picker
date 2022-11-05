@@ -2,15 +2,35 @@ import { Flex } from "@chakra-ui/react";
 import { useCallback, useMemo, useState } from "react";
 import { PlayerOverview } from "./components/player-overview/player-overview";
 import { SelectedPlayers } from "./components/selected-players/selected-players";
-import { Player, playerCanBeSelected } from "./contracts";
+import { Player, playerCanBeSelected, players } from "./contracts";
 import { PlayerSelectionContext } from "./player-selection-context";
 import './app.css';
 import { InactivePlayers } from "./components/inactive-players/inactive-players";
 
+const initialSetup = localStorage.getItem('pickedPlayers');
+let initialSelectedPlayers: Array<Player> = [];
+let initialInactivePlayers: Array<Player> = [];
+if (initialSetup !== undefined && initialSetup !== null && initialSetup !== '') {
+  const {selectedPlayerNumbers, inactivePlayerNumbers} = JSON.parse(initialSetup);
+  const playersByNumber: {[key: string]: Player} = {};
+  for (const player of players) {
+    playersByNumber[player.number] = player;
+  }
+
+  initialSelectedPlayers = selectedPlayerNumbers.map((playerNumber: number) => {
+    return playersByNumber[playerNumber]
+  });
+  initialInactivePlayers = inactivePlayerNumbers.map((playerNumber: number) => {
+    return playersByNumber[playerNumber]
+  });
+}
+
+console.log(initialSelectedPlayers, initialInactivePlayers);
+
 function App() {
 
-  const [selectedPlayers, setSelectedPlayers] = useState<Array<Player>>([]);
-  const [inactivePlayers, setInactivePlayers] = useState<Array<Player>>([]);
+  const [selectedPlayers, setSelectedPlayers] = useState<Array<Player>>(initialSelectedPlayers);
+  const [inactivePlayers, setInactivePlayers] = useState<Array<Player>>(initialInactivePlayers);
 
   const addPlayer = useCallback((player: Player) => {
     setSelectedPlayers((selectedPlayers) => {
@@ -53,6 +73,15 @@ function App() {
   }, []);
 
   const playerSelectionContext = useMemo(() => {
+    localStorage.setItem('pickedPlayers', JSON.stringify({
+      selectedPlayerNumbers: selectedPlayers.map((player) => {
+        return player.number;
+      }),
+      inactivePlayerNumbers: inactivePlayers.map((player) => {
+        return player.number;
+      }),
+    }));
+
     return {
       selectedPlayers: selectedPlayers,
       inactivePlayers: inactivePlayers,
@@ -63,6 +92,7 @@ function App() {
     }
   }, [addPlayer, inactivePlayers, makePlayerActive, makePlayerInactive, removePlayer, selectedPlayers]);
 
+  console.log(playerSelectionContext)
   return (
     <Flex width="100%" height="100vh" justifyContent="center" alignItems="center">
       <Flex

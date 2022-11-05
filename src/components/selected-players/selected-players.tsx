@@ -34,7 +34,7 @@ const SelectedPlayersComponent = (): ReactElement => {
       <Flex height="100%">
         <Flex gap="8px" alignItems="start">
           {sortedSelectedPlayers.map((player) => {
-            return <SelectedPlayer player={player} onClick={removePlayer}/>
+            return <SelectedPlayer key={player.number} player={player} onClick={removePlayer}/>
           })}
         </Flex>
         {
