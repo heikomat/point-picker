@@ -9,6 +9,8 @@ type Props = {
   displayDisabled?: boolean;
 }
 
+export const overviewPlayerWidth = 70;
+
 const OverviewPlayerComponent = (props: Props): ReactElement => {
   const {player, onClick, displayDisabled} = props;
 
@@ -20,7 +22,7 @@ const OverviewPlayerComponent = (props: Props): ReactElement => {
 
   return (
     <Flex
-      width="70px"
+      width={`${overviewPlayerWidth}px`}
       direction="column"
       textAlign="center"
       fontSize="12px"
