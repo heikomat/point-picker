@@ -37,6 +37,11 @@ const PlayerPictureComponent = (props: Props): ReactElement => {
       >
         {`#${player.number}`}
       </Box>
+      {!player.isDisabled && (
+        <Box width="45%" height="45%" backgroundColor="red.600" transform="rotate(45deg)" right="-22.5%" bottom="-22.5%" position="absolute">
+
+        </Box>
+      )}
     </Box>
   );
 };

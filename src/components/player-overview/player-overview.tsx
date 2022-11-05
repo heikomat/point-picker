@@ -5,6 +5,7 @@ import { OverviewPlayer, overviewPlayerWidth } from "./overview-player";
 import { PlayerSelectionContext } from "../../player-selection-context";
 
 const playersByPoints: {[key: string]: Array<Player>} = {};
+const maxColumns = 2;
 for (const player of players) {
   if (playersByPoints[player.totalPoints] === undefined) {
     playersByPoints[player.totalPoints] = [];
@@ -87,10 +88,23 @@ const PlayerOverviewComponent = (): ReactElement => {
 
   return (
     <Flex direction="row" width="100%" padding="12px" paddingTop="0" flexWrap="wrap" gap="12px"  overflow="auto">
-      {playersToRender.map(([points, players]) => {
+      {playersToRender.map(([points, players], index) => {
         
-        const columnsToOccupy = Math.min(players.length, 2, remainingColumns);
-        const blockWidth = columnsToOccupy === 1 ? singleColumnWidth : multiColumnWidth;
+        let columnsToOccupy = Math.min(players.length, maxColumns, remainingColumns);
+        const currentRows = Math.ceil(players.length / columnsToOccupy);
+
+        const nextBlockExists = index < playersToRender.length - 1;
+        const nextBlockIsInCurrentRow = (remainingColumns - columnsToOccupy) > 0;
+        if (nextBlockExists && nextBlockIsInCurrentRow) {
+          const nextPlayerCount = playersToRender[index + 1][1].length;
+          const nextColumnsToOccupy = Math.min(nextPlayerCount, maxColumns, remainingColumns);
+          const nextRows = Math.ceil(nextPlayerCount / nextColumnsToOccupy);
+          if (nextRows > currentRows && columnsToOccupy > 1) {
+            columnsToOccupy -= 1;
+          }
+        }
+    
+        const blockWidth = columnsToOccupy * 100 / fittingPlayers;
 
         remainingColumns = remainingColumns - columnsToOccupy;
         if (remainingColumns <= 0) {
