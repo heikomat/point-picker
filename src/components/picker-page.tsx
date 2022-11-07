@@ -1,4 +1,4 @@
-import { Flex } from "@chakra-ui/react";
+import { Button, Flex } from "@chakra-ui/react";
 import { memo, useCallback, useMemo, useState } from "react";
 import { PlayerOverview } from "./player-overview/player-overview";
 import { SelectedPlayers } from "./selected-players/selected-players";
@@ -6,12 +6,19 @@ import { Player, playerCanBeSelected, players } from "../contracts";
 import { PlayerSelectionContext } from "../player-selection-context";
 import { InactivePlayers } from "./inactive-players/inactive-players";
 
+export type Game = {
+  name: string;
+  selectedPlayerNumbers: Array<number>;
+  inactivePlayerNumbers: Array<number>;
+}
+
 type Props = {
-  page: number
+  page: string
+  startTransition: (game: Game) => void
 }
 
 function PickerPageComponent(props: Props) {
-  const {page} = props;
+  const {page, startTransition} = props;
 
   const [{initialSelectedPlayers, initialInactivePlayers}] = useState(() => {
     const initialSetup = localStorage.getItem(`pickedPlayers-${page}`);
@@ -78,15 +85,20 @@ function PickerPageComponent(props: Props) {
     })
   }, []);
 
-  const playerSelectionContext = useMemo(() => {
-    localStorage.setItem(`pickedPlayers-${page}`, JSON.stringify({
+  const currentGame = useMemo(() => {
+    return {
+      name: page,
       selectedPlayerNumbers: selectedPlayers.map((player) => {
         return player.number;
       }),
       inactivePlayerNumbers: inactivePlayers.map((player) => {
         return player.number;
       }),
-    }));
+    }
+  }, [inactivePlayers, page, selectedPlayers]);
+
+  const playerSelectionContext = useMemo(() => {
+    localStorage.setItem(`pickedPlayers-${page}`, JSON.stringify(currentGame));
 
     return {
       selectedPlayers: selectedPlayers,
@@ -96,13 +108,20 @@ function PickerPageComponent(props: Props) {
       addPlayer: addPlayer,
       removePlayer: removePlayer,
     }
-  }, [addPlayer, inactivePlayers, makePlayerActive, makePlayerInactive, removePlayer, selectedPlayers, page]);
+  }, [page, currentGame, selectedPlayers, inactivePlayers, makePlayerActive, makePlayerInactive, addPlayer, removePlayer]);
+
+  const handleTransitionClick = useCallback(() => {
+    startTransition?.(currentGame)
+  }, [currentGame, startTransition]);
 
   console.log(playerSelectionContext)
   return (
     <Flex height="100%" direction="column">
       <PlayerSelectionContext.Provider value={playerSelectionContext}>
-        <InactivePlayers />
+        <Flex>
+          <InactivePlayers />
+          <Button onClick={handleTransitionClick}>Transition</Button>
+        </Flex>
         <Flex grow="1" minHeight="0">
           <PlayerOverview />
         </Flex>

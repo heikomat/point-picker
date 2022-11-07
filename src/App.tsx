@@ -1,8 +1,22 @@
 import { Flex, Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/react";
+import { useCallback, useState } from "react";
 import './app.css';
-import { PickerPage } from "./components/picker-page";
+import { Game, PickerPage } from "./components/picker-page";
+import { TransitionPage } from "./components/transition-page";
 
 function App() {
+
+  const [tabIndex, setTabIndex] = useState(0)
+  const [currentTransitionGame, setCurrentTransitionGame] = useState<Game>()
+
+  const handleTabsChange = (index: number) => {
+    setTabIndex(index)
+  }
+
+  const startTransition = useCallback((currentGame: Game) => {
+    setCurrentTransitionGame(currentGame);
+    setTabIndex(3);
+  }, []);
 
   return (
     <Flex width="100%" height="100vh" justifyContent="center" alignItems="center">
@@ -18,22 +32,26 @@ function App() {
         direction="column"
         userSelect="none"
       >
-        <Tabs isFitted height="100%" display="flex" flexDirection="column">
+        <Tabs isFitted height="100%" display="flex" flexDirection="column" index={tabIndex} onChange={handleTabsChange}>
           <TabList>
-            <Tab>1</Tab>
-            <Tab>2</Tab>
-            <Tab>3</Tab>
+            <Tab>1. Spiel</Tab>
+            <Tab>2. Spiel</Tab>
+            <Tab>Playground</Tab>
+            <Tab>Transition</Tab>
           </TabList>
 
           <TabPanels overflow="hidden">
             <TabPanel padding="0" height="100%">
-              <PickerPage page={1} />
+              <PickerPage page="first-game" startTransition={startTransition}/>
             </TabPanel>
             <TabPanel padding="0" height="100%">
-              <PickerPage page={2} />
+              <PickerPage page="second-game" startTransition={startTransition}/>
             </TabPanel>
             <TabPanel padding="0" height="100%">
-              <PickerPage page={3} />
+              <PickerPage page="playground" startTransition={startTransition}/>
+            </TabPanel>
+            <TabPanel padding="0" height="100%">
+              <TransitionPage page="transition" game={currentTransitionGame}/>
             </TabPanel>
           </TabPanels>
         </Tabs>
