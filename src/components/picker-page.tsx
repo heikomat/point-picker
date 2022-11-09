@@ -125,7 +125,7 @@ function PickerPageComponent(props: Props) {
         <Flex grow="1" minHeight="0">
           <PlayerOverview />
         </Flex>
-        <SelectedPlayers />
+        <SelectedPlayers selectedPlayers={selectedPlayers} removePlayer={removePlayer} />
       </PlayerSelectionContext.Provider>
     </Flex>
   );

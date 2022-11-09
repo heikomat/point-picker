@@ -4,8 +4,8 @@ import { Flex, Grid } from "@chakra-ui/react";
 import { OverviewPlayer, overviewPlayerWidth } from "./overview-player";
 import { PlayerSelectionContext } from "../../player-selection-context";
 
-const playersByPoints: {[key: string]: Array<Player>} = {};
 const maxColumns = 2;
+const playersByPoints: {[key: string]: Array<Player>} = {};
 for (const player of players) {
   if (playersByPoints[player.totalPoints] === undefined) {
     playersByPoints[player.totalPoints] = [];

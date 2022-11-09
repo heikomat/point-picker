@@ -1,11 +1,15 @@
 import { Box, Flex } from "@chakra-ui/react";
-import { memo, ReactElement, useContext, useMemo } from "react";
-import { PlayerSelectionContext } from "../../player-selection-context";
+import { memo, ReactElement, useMemo } from "react";
+import { Player } from "../../contracts";
 import { SelectedPlayer } from "./selected-player";
 
+type Props = {
+  selectedPlayers: Array<Player>
+  removePlayer?: (player: Player) => void;
+}
 
-const SelectedPlayersComponent = (): ReactElement => {
-  const {selectedPlayers, removePlayer} = useContext(PlayerSelectionContext);
+const SelectedPlayersComponent = (props: Props): ReactElement => {
+  const {selectedPlayers, removePlayer} = props;
 
   const sortedSelectedPlayers = useMemo(() => {
     return selectedPlayers.sort((player1, player2) => {

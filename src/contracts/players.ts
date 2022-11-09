@@ -165,7 +165,12 @@ export const players: Array<Player> = [{
   }
 
   return 0;
-});
+})
+
+export const playersByNumber: {[key: number]: Player} = {};
+for (const player of players) {
+  playersByNumber[player.number] = player;
+}
 
 const maxNBs = 2;
 const maxPlayerPoints = 14.5;
