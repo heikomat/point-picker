@@ -1,6 +1,8 @@
-import { Flex } from "@chakra-ui/react";
+import { Flex, Grid } from "@chakra-ui/react";
 import { memo, useEffect } from "react";
 import { Game } from "./picker-page";
+import { PlayerList } from "./player-list";
+import { SelectedPlayers } from "./selected-players/selected-players";
 
 type Props = {
   page: string
@@ -15,9 +17,27 @@ function TransitionPageComponent(props: Props) {
   }, [game]);
 
   return (
-    <Flex height="100%" direction="column">
-      {'AAAAAA'}
-    </Flex>
+    <Grid height="100%" templateColumns={"1fr 1fr"} templateRows="1fr 150px min-content" templateAreas={`
+      "current_game bench   "
+      "out          in      "
+      "new_game     new_game"
+    `}>
+      <Flex gridArea="current_game" direction="column">
+        <PlayerList />
+      </Flex>
+      <Flex gridArea="bench" direction="column">
+        <PlayerList />
+      </Flex>
+      <Flex gridArea="out" direction="column">
+        <PlayerList />
+      </Flex>
+      <Flex gridArea="in" direction="column">
+        <PlayerList />
+      </Flex>
+      <Flex gridArea="new_game" direction="column">
+        <SelectedPlayers />
+      </Flex>
+    </Grid>
   );
 }
 

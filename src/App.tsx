@@ -40,7 +40,7 @@ function App() {
             <Tab>Transition</Tab>
           </TabList>
 
-          <TabPanels overflow="hidden">
+          <TabPanels overflow="hidden" height="100%">
             <TabPanel padding="0" height="100%">
               <PickerPage page="first-game" startTransition={startTransition}/>
             </TabPanel>

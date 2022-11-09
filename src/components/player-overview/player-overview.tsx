@@ -75,7 +75,7 @@ const PlayerOverviewComponent = (): ReactElement => {
     };
     window.addEventListener('resize', updateWindowWidth);
     return (): void => {
-      window.removeEventListener('resite', updateWindowWidth);
+      window.removeEventListener('resize', updateWindowWidth);
     }
   });
 
