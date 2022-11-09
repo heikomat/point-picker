@@ -1,6 +1,6 @@
 import { Player, playerCanBeSelected, players } from "../../contracts";
 import { memo, ReactElement, useCallback, useContext, useEffect, useMemo, useState } from "react";
-import { Box, Flex, Grid } from "@chakra-ui/react";
+import { Flex, Grid } from "@chakra-ui/react";
 import { OverviewPlayer, overviewPlayerWidth } from "./overview-player";
 import { PlayerSelectionContext } from "../../player-selection-context";
 
@@ -81,8 +81,6 @@ const PlayerOverviewComponent = (): ReactElement => {
 
   const currentWidth = Math.min(windowWidth, 500) - 16;
   const fittingPlayers = Math.floor(currentWidth/(overviewPlayerWidth + 32));
-  const singleColumnWidth = 100/fittingPlayers;
-  const multiColumnWidth = 200/fittingPlayers;
 
   let remainingColumns = fittingPlayers;
 
