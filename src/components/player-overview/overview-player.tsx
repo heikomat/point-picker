@@ -33,7 +33,11 @@ const OverviewPlayerComponent = (props: Props): ReactElement => {
     event.stopPropagation();
     event.preventDefault();
     onLongPress?.(player);
-  }, {captureEvent: true});
+  }, {
+    captureEvent: true,
+    cancelOnMovement: 20,
+    threshold: 1000,
+  });
 
   const fontSize = playerWidth < overviewPlayerWidth ? '10px' : '12px';
   // TODO: Show icon when in kader
