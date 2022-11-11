@@ -6,10 +6,11 @@ import { SelectedPlayer } from "./selected-player";
 type Props = {
   selectedPlayers: Array<Player>
   removePlayer?: (player: Player) => void;
+  title?: string
 }
 
 const SelectedPlayersComponent = (props: Props): ReactElement => {
-  const {selectedPlayers, removePlayer} = props;
+  const {selectedPlayers, removePlayer, title="Kader"} = props;
 
   const sortedSelectedPlayers = useMemo(() => {
     return selectedPlayers.sort((player1, player2) => {
@@ -24,17 +25,20 @@ const SelectedPlayersComponent = (props: Props): ReactElement => {
     }
     return result;
   }, [selectedPlayers]);
+
+  const remainingPoints = 14.5 - totalPoints;
   return (
     <Flex
       direction="column"
       width="100%"
-      height="115px"
+      height="119px"
       backgroundColor="blue.50"
-      boxShadow="0px 0px 8px 0px #959595"
+      // boxShadow="0px 0px 8px 0px #959595"
+      border="1px solid #cecece"
       padding="8px"
       shrink="0"
     >
-      <Box fontWeight="bold">{'Kader'}</Box>
+      <Box fontWeight="bold" paddingBottom="4px">{title}</Box>
       <Flex height="100%">
         <Flex gap="8px" alignItems="start">
           {sortedSelectedPlayers.map((player) => {
@@ -59,9 +63,10 @@ const SelectedPlayersComponent = (props: Props): ReactElement => {
           <Box>{'Übrig'}</Box>
           <Box
             fontWeight="bold"
-            fontSize="16px"
+            fontSize={remainingPoints < 0 ? '20px': '16px'}
+            color={remainingPoints < 0 ? 'red': undefined}
           >
-            {`${14.5 - totalPoints}`}
+            {`${remainingPoints}`}
           </Box>
         </Flex>
       </Flex>

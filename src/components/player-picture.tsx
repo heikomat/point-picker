@@ -4,6 +4,7 @@ import { Player } from "../contracts";
 
 type Props = {
   player: Player
+  showNumber?: boolean;
 }
 
 const imageStyle = {
@@ -11,7 +12,7 @@ const imageStyle = {
 }
 
 const PlayerPictureComponent = (props: Props): ReactElement => {
-  const {player} = props;
+  const {player, showNumber = true} = props;
 
   // TODO: numbers have spacing to bottom. remove it
   return (
@@ -25,7 +26,8 @@ const PlayerPictureComponent = (props: Props): ReactElement => {
       position="relative"
       overflow="hidden"
     >
-      <Box
+      {showNumber && (
+        <Box
         backgroundColor="blue"
         paddingX="3px"
         fontSize="12px"
@@ -34,9 +36,10 @@ const PlayerPictureComponent = (props: Props): ReactElement => {
         position="absolute"
         borderBottomLeftRadius="3px"
         color="white"
-      >
+        >
         {`#${player.number}`}
-      </Box>
+        </Box>
+      )}
       {!player.isDisabled && (
         <Box width="45%" height="45%" backgroundColor="red.600" transform="rotate(45deg)" right="-22.5%" bottom="-22.5%" position="absolute">
 

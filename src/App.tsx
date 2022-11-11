@@ -42,13 +42,13 @@ function App() {
 
           <TabPanels overflow="hidden" height="100%">
             <TabPanel padding="0" height="100%">
-              <PickerPage page="first-game" startTransition={startTransition}/>
+              <PickerPage page="first-game" title="1. Spiel" startTransition={startTransition}/>
             </TabPanel>
             <TabPanel padding="0" height="100%">
-              <PickerPage page="second-game" startTransition={startTransition}/>
+              <PickerPage page="second-game" title="2. Spiel" startTransition={startTransition}/>
             </TabPanel>
             <TabPanel padding="0" height="100%">
-              <PickerPage page="playground" startTransition={startTransition}/>
+              <PickerPage page="playground" title="Playground" startTransition={startTransition}/>
             </TabPanel>
             <TabPanel padding="0" height="100%">
               <TransitionPage page="transition" game={currentTransitionGame}/>

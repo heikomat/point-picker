@@ -1,12 +1,18 @@
 import { Collapse, Flex, Grid, useDisclosure } from "@chakra-ui/react";
 import { memo, ReactElement, useContext } from "react";
+import { Player } from "../../contracts";
 import { PlayerSelectionContext } from "../../player-selection-context";
 import { OverviewPlayer } from "../player-overview/overview-player";
 
 const playerWidth = 50;
 
-const InactivePlayersComponent = (): ReactElement => {
-  const {inactivePlayers, makePlayerActive} = useContext(PlayerSelectionContext);
+type Props = {
+  inactivePlayers?: Array<Player>
+  makePlayerActive?: (player: Player) => void;
+}
+
+const InactivePlayersComponent = (props: Props): ReactElement => {
+  const {inactivePlayers = [], makePlayerActive} = props;
   const { isOpen, onToggle } = useDisclosure()
 
   return (

@@ -1,6 +1,8 @@
-import { Flex, Grid } from "@chakra-ui/react";
-import { memo, useEffect, useMemo, useState } from "react";
-import { Player, players, playersByNumber } from "../contracts";
+import { Box, Button, Flex, Grid } from "@chakra-ui/react";
+import { memo, useCallback, useEffect, useMemo, useState } from "react";
+import { Player, playerCanBeSelected, players, playersAreValidTeam, playersByNumber } from "../contracts";
+import { addPlayer, playerFromNumber, sortByPoints, subtractPlayer } from "../tools";
+import { InactivePlayers } from "./inactive-players/inactive-players";
 import { Game } from "./picker-page";
 import { PlayerList } from "./player-list";
 import { SelectedPlayers } from "./selected-players/selected-players";
@@ -8,19 +10,54 @@ import { SelectedPlayers } from "./selected-players/selected-players";
 type Props = {
   page: string
   game?: Game
+  onApply?: (newGame: Game) => void;
 }
+
+const borderStyleDark = "1px solid #494949"
 
 function TransitionPageComponent(props: Props) {
   const {page, game} = props;
 
-  const currentGame = useMemo(() => {
-    return game?.selectedPlayerNumbers.map((selectedPlayerNumber) => {
-      return playersByNumber[selectedPlayerNumber]
-    })
-  }, [game]);
-
   const [playersIn, setPlayersIn] = useState<Array<Player>>([]);
   const [playersOut, setPlayersOut] = useState<Array<Player>>([]);
+
+  useEffect(() => {
+    setPlayersIn([]);
+    setPlayersOut([]);
+  }, [game])
+
+  const inactivePlayers = useMemo(() => {
+    return game?.inactivePlayerNumbers.map(playerFromNumber);
+  }, [game?.inactivePlayerNumbers]);
+
+  const handleApplyGame = useCallback(() => {
+
+  }, []);
+
+
+  const removePlayerFromGame = useCallback((player: Player) => {
+    setPlayersOut((playersOut) => {
+      return sortByPoints(addPlayer(playersOut, player));
+    });
+  }, []);
+
+  const readdPlayerToGame = useCallback((player: Player) => {
+    setPlayersOut((playersOut) => {
+      return sortByPoints(subtractPlayer(playersOut, player));
+    });
+  }, []);
+
+  const addPlayerFromBench = useCallback((player: Player) => {
+    setPlayersIn((playersIn) => {
+      return sortByPoints(addPlayer(playersIn, player));
+    });
+  }, []);
+
+  const readdPlayerToBench = useCallback((player: Player) => {
+    setPlayersIn((playersIn) => {
+      return sortByPoints(subtractPlayer(playersIn, player));
+    });
+  }, []);
 
   const playersInNumbers = useMemo(() => {
     return new Set(playersIn.map((player) => {
@@ -29,10 +66,18 @@ function TransitionPageComponent(props: Props) {
   }, [playersIn]);
 
   const playersOutNumbers = useMemo(() => {
-    return new Set(playersIn.map((player) => {
+    return new Set(playersOut.map((player) => {
       return player.number;
     }))
-  }, [playersIn]);
+  }, [playersOut]);
+
+  const currentGame = useMemo(() => {
+    return sortByPoints(game?.selectedPlayerNumbers
+      .filter((playerNumber) => {
+        return !playersOutNumbers.has(playerNumber);
+      })
+      .map(playerFromNumber) ?? [])
+  }, [game?.selectedPlayerNumbers, playersOutNumbers]);
 
   const newGame = useMemo(() => {
     return [
@@ -43,43 +88,83 @@ function TransitionPageComponent(props: Props) {
     ];
   }, [currentGame, playersIn, playersOutNumbers]);
 
-
   const benchPlayers = useMemo(() => {
     const inactivePlayerNumbers = new Set(game?.inactivePlayerNumbers);
     const oldSelectedPlayersNumbers = new Set(game?.selectedPlayerNumbers);
-    return players
+    return sortByPoints(players
       .filter((player) => {
         const playerIsInactive = inactivePlayerNumbers.has(player.number)
         const playerIsAlreadyInGame = oldSelectedPlayersNumbers.has(player.number)
         const PlayerIsAlreadySelected = playersInNumbers.has(player.number)
         return !playerIsInactive && !playerIsAlreadyInGame && !PlayerIsAlreadySelected;
-      });
+      }));
   }, [game?.inactivePlayerNumbers, game?.selectedPlayerNumbers, playersInNumbers]);
 
-  useEffect(() => {
-    console.log('game', game);
-  }, [game]);
+  const unselectablePlayerNumbers = useMemo(() => {
+    return new Set(players
+      .filter((player) => {
+        return !playerCanBeSelected(newGame, player);
+      }).map((player) => {
+        return player.number;
+      }));
+  }, [newGame]);
+
+  const transitionIsValid = useMemo(() => {
+    return playersAreValidTeam(newGame);
+  }, [newGame]);
+
+  console.log('transitionIsValid', transitionIsValid)
 
   return (
-    <Grid height="100%" templateColumns={"1fr 1fr"} templateRows="1fr 150px min-content" templateAreas={`
+    <Grid height="100%" templateColumns={"1fr 1fr"} templateRows="min-content 1fr 250px min-content min-content" templateAreas={`
+      "inactive     inactive"
       "current_game bench   "
       "out          in      "
       "new_game     new_game"
+      "apply        apply   "
     `}>
-      <Flex gridArea="current_game" direction="column">
-        <PlayerList players={currentGame}/>
+      <Flex gridArea="inactive" borderBottom={borderStyleDark}>
+        <InactivePlayers inactivePlayers={inactivePlayers} />
       </Flex>
-      <Flex gridArea="bench" direction="column">
-        <PlayerList players={benchPlayers}/>
+      <PlayerList
+        gridArea="current_game"
+        borderBottom={borderStyleDark}
+        title="Altes Feld"
+        players={currentGame}
+        showPointSum
+        onPlayerClick={removePlayerFromGame}
+      />
+      <PlayerList
+        gridArea="bench"
+        borderLeft={borderStyleDark}
+        borderBottom={borderStyleDark}
+        title="Bank"
+        players={benchPlayers}
+        onPlayerClick={addPlayerFromBench}
+        greyedOutPlayers={unselectablePlayerNumbers}
+      />
+      <PlayerList
+        gridArea="out"
+        title="Raus"
+        players={playersOut}
+        showPointSum
+        onPlayerClick={readdPlayerToGame}
+      />
+      <PlayerList
+        gridArea="in"
+        borderLeft={borderStyleDark}
+        title="Rein"
+        players={playersIn}
+        showPointSum
+        onPlayerClick={readdPlayerToBench}
+      />
+      <Flex gridArea="new_game" height="100%" minHeight="0">
+        <SelectedPlayers selectedPlayers={newGame} title="Neues Feld" />
       </Flex>
-      <Flex gridArea="out" direction="column">
-        <PlayerList players={playersOut} />
-      </Flex>
-      <Flex gridArea="in" direction="column">
-        <PlayerList players={playersIn} />
-      </Flex>
-      <Flex gridArea="new_game" direction="column">
-        <SelectedPlayers selectedPlayers={newGame} />
+      <Flex gridArea="apply" padding = "8px">
+        <Button colorScheme="teal" width="100%" disabled={!transitionIsValid} onClick={handleApplyGame}>
+          {`${game?.name} Übernehmen`}
+        </Button>
       </Flex>
     </Grid>
   );

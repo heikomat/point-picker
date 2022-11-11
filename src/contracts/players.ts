@@ -89,7 +89,7 @@ export const players: Array<Player> = [{
   number: 12,
   image: yannik,
   ...getName('Yannik', 'Parthier'),
-  ...getPointInfo(3, [Bonus.Beginner])
+  ...getPointInfo(2.5, [Bonus.Beginner])
 }, {
   isDisabled: true,
   number: 4,
@@ -155,7 +155,7 @@ export const players: Array<Player> = [{
   number: 8,
   image: jill,
   ...getName('Jill', 'Kaiser-Föhles'),
-  ...getPointInfo(3.5, [Bonus.Woman])
+  ...getPointInfo(3, [Bonus.Woman])
 }].sort((player1, player2) => {
   if (player1.displayName > player2.displayName) {
     return 1;
@@ -175,39 +175,45 @@ for (const player of players) {
 const maxNBs = 2;
 const maxPlayerPoints = 14.5;
 
+export const playersAreValidTeam = (players: Array<Player>): boolean => {
+  if (players.length > 5) {
+    return false;
+  }
+
+  let totalPoints = 0;
+  for (const player of players) {
+    totalPoints += player.totalPoints;
+  }
+
+  if (totalPoints > maxPlayerPoints) {
+    return false;
+  }
+  /*
+  // max NB players on field - rule
+  let amountOfNBPLayers = 0;
+  for (const player of players) {
+    if (player.isDisabled === false) {
+      amountOfNBPLayers += 1;
+    }
+  }
+
+  if (amountOfNBPLayers >= maxNBs) {
+    return false;
+  }
+  */
+
+  return true;
+}
+
 export const playerCanBeSelected = (selectedPlayers: Array<Player>, playerToSelect: Player): boolean => {
 
-  if (selectedPlayers.length === 5) {
+  if (!playersAreValidTeam([...selectedPlayers, playerToSelect])) {
     return false;
   }
 
   const alreadySelectedPlayer = selectedPlayers.find((selectedPlayer) => {
     return selectedPlayer.number === playerToSelect.number;
   });
-
-  let totalAlreadySelectedPlayerPoints = 0;
-  for (const player of selectedPlayers) {
-    totalAlreadySelectedPlayerPoints += player.totalPoints;
-  }
-
-  if (totalAlreadySelectedPlayerPoints + playerToSelect.totalPoints > maxPlayerPoints) {
-    return false;
-  }
-  /*
-  // max NB players on field - rule
-  if (player.isDisabled === false) {
-    let amountOfAlreadySelectedNBPLayers = 0;
-    for (const selectedPlayer of selectedPlayers) {
-      if (selectedPlayer.isDisabled === false) {
-        amountOfAlreadySelectedNBPLayers += 1;
-      }
-    }
-
-    if (amountOfAlreadySelectedNBPLayers >= maxNBs) {
-      return selectedPlayers;
-    }
-  }
-  */
 
   if (alreadySelectedPlayer !== undefined) {
     return false;

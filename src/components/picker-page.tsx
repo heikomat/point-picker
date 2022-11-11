@@ -5,6 +5,7 @@ import { SelectedPlayers } from "./selected-players/selected-players";
 import { Player, playerCanBeSelected, players } from "../contracts";
 import { PlayerSelectionContext } from "../player-selection-context";
 import { InactivePlayers } from "./inactive-players/inactive-players";
+import { subtractPlayer, addPlayer as toolsAddPlayer } from "../tools";
 
 export type Game = {
   name: string;
@@ -13,12 +14,13 @@ export type Game = {
 }
 
 type Props = {
-  page: string
-  startTransition: (game: Game) => void
+  page: string;
+  title: string;
+  startTransition: (game: Game) => void;
 }
 
 function PickerPageComponent(props: Props) {
-  const {page, startTransition} = props;
+  const {page, title, startTransition} = props;
 
   const [{initialSelectedPlayers, initialInactivePlayers}] = useState(() => {
     const initialSetup = localStorage.getItem(`pickedPlayers-${page}`);
@@ -51,15 +53,13 @@ function PickerPageComponent(props: Props) {
         return selectedPlayers
       }
 
-      return [...selectedPlayers, player];
+      return toolsAddPlayer(selectedPlayers, player);
     })
   }, []);
   
   const removePlayer = useCallback((player: Player) => {
     setSelectedPlayers((selectedPlayers) => {
-      return selectedPlayers.slice(0).filter((selectedPlayer) => {
-        return selectedPlayer.number !== player.number
-      })
+      return subtractPlayer(selectedPlayers, player);
     })
   }, []);
 
@@ -87,7 +87,7 @@ function PickerPageComponent(props: Props) {
 
   const currentGame = useMemo(() => {
     return {
-      name: page,
+      name: title,
       selectedPlayerNumbers: selectedPlayers.map((player) => {
         return player.number;
       }),
@@ -95,7 +95,7 @@ function PickerPageComponent(props: Props) {
         return player.number;
       }),
     }
-  }, [inactivePlayers, page, selectedPlayers]);
+  }, [inactivePlayers, title, selectedPlayers]);
 
   const playerSelectionContext = useMemo(() => {
     localStorage.setItem(`pickedPlayers-${page}`, JSON.stringify(currentGame));
@@ -119,7 +119,7 @@ function PickerPageComponent(props: Props) {
     <Flex height="100%" direction="column">
       <PlayerSelectionContext.Provider value={playerSelectionContext}>
         <Flex>
-          <InactivePlayers />
+          <InactivePlayers inactivePlayers={inactivePlayers} makePlayerActive={makePlayerActive}/>
           <Button onClick={handleTransitionClick}>Transition</Button>
         </Flex>
         <Flex grow="1" minHeight="0">
