@@ -25,13 +25,13 @@ function PickerPageComponent(props: Props) {
 
   const {startTransition, lastAppliedTransition} = useContext(GameTransitionContext);
 
-  const [{initialSelectedPlayers, initialInactivePlayers}] = useState(() => {
+  const [{initialSelectedPlayers, initialInactivePlayers, initialIsLocked}] = useState(() => {
     const initialSetup = localStorage.getItem(`pickedPlayers-${page}`);
     if (initialSetup === undefined || initialSetup === null || initialSetup === '') {
-      return {initialSelectedPlayers: [], initialInactivePlayers: []};
+      return {initialSelectedPlayers: [], initialInactivePlayers: [], initialIsLocked: false};
     }
 
-    const {selectedPlayerNumbers, inactivePlayerNumbers} = JSON.parse(initialSetup);
+    const {selectedPlayerNumbers, inactivePlayerNumbers, isLocked} = JSON.parse(initialSetup);
     const playersByNumber: {[key: string]: Player} = {};
     for (const player of players) {
       playersByNumber[player.number] = player;
@@ -44,11 +44,13 @@ function PickerPageComponent(props: Props) {
       initialInactivePlayers: inactivePlayerNumbers.map((playerNumber: number) => {
         return playersByNumber[playerNumber]
       }),
-    }
+      initialIsLocked: isLocked,
+    };
   })
 
   const [selectedPlayers, setSelectedPlayers] = useState<Array<Player>>(initialSelectedPlayers);
   const [inactivePlayers, setInactivePlayers] = useState<Array<Player>>(initialInactivePlayers);
+  const [isLocked, setIsLocked] = useState<boolean>(initialIsLocked);
 
   useEffect(() => {
     if (lastAppliedTransition?.gameId === page) {
@@ -57,6 +59,10 @@ function PickerPageComponent(props: Props) {
   }, [lastAppliedTransition, page])
 
   const addPlayer = useCallback((player: Player) => {
+    if (isLocked) {
+      return;
+    }
+
     setSelectedPlayers((selectedPlayers) => {
       if (!playerCanBeSelected(selectedPlayers, player)) {
         return selectedPlayers
@@ -64,15 +70,23 @@ function PickerPageComponent(props: Props) {
 
       return toolsAddPlayer(selectedPlayers, player);
     })
-  }, []);
+  }, [isLocked]);
   
   const removePlayer = useCallback((player: Player) => {
+    if (isLocked) {
+      return;
+    }
+
     setSelectedPlayers((selectedPlayers) => {
       return subtractPlayer(selectedPlayers, player);
     })
-  }, []);
+  }, [isLocked]);
 
   const makePlayerInactive = useCallback((player: Player) => {
+    if (isLocked) {
+      return;
+    }
+
     removePlayer(player);
     setInactivePlayers((inactivePlayers) => {
       const alreadyInactivePlayers = inactivePlayers.find((inactivePlayer) => {
@@ -84,15 +98,19 @@ function PickerPageComponent(props: Props) {
 
       return [...inactivePlayers, player];
     })
-  }, [removePlayer]);
+  }, [isLocked, removePlayer]);
   
   const makePlayerActive = useCallback((player: Player) => {
+    if (isLocked) {
+      return;
+    }
+
     setInactivePlayers((inactivePlayers) => {
       return inactivePlayers.slice(0).filter((inactivePlayer) => {
         return inactivePlayer.number !== player.number
       })
     })
-  }, []);
+  }, [isLocked]);
 
   const currentGame = useMemo(() => {
     return {
@@ -100,8 +118,9 @@ function PickerPageComponent(props: Props) {
       title: title,
       selectedPlayerNumbers: selectedPlayers.map(numberFromPLayer),
       inactivePlayerNumbers: inactivePlayers.map(numberFromPLayer),
+      isLocked: isLocked,
     }
-  }, [page, title, selectedPlayers, inactivePlayers]);
+  }, [page, title, selectedPlayers, inactivePlayers, isLocked]);
 
   const playerSelectionContext = useMemo(() => {
     localStorage.setItem(`pickedPlayers-${page}`, JSON.stringify(currentGame));
@@ -120,15 +139,22 @@ function PickerPageComponent(props: Props) {
     startTransition?.(currentGame)
   }, [currentGame, startTransition]);
 
+  const handleLockClick = useCallback(() => {
+    setIsLocked((isLocked) => {
+      return !isLocked;
+    })
+  }, []);
+
   console.log(playerSelectionContext)
   return (
     <Flex height="100%" direction="column">
       <PlayerSelectionContext.Provider value={playerSelectionContext}>
-        <Flex padding="12px">
+        <Flex padding="12px" gap="12px">
+          <Button colorScheme={isLocked ? 'green' : 'orange'} onClick={handleLockClick}>{isLocked ? '🔒' : '🔓'}</Button>
           <InactivePlayers inactivePlayers={inactivePlayers} makePlayerActive={makePlayerActive}/>
-          <Button onClick={handleTransitionClick}>Transition</Button>
+          <Button colorScheme="teal" onClick={handleTransitionClick}>Transition</Button>
         </Flex>
-        <Flex grow="1" minHeight="0">
+        <Flex grow="1" minHeight="0" opacity={isLocked ? '0.2' : '1'} transition="opacity 0.2s">
           <PlayerOverview />
         </Flex>
         <Flex padding="8px">
