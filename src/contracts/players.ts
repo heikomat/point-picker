@@ -13,6 +13,7 @@ import jakobus from '../assets/jakobus.jpg';
 import philippe from '../assets/philippe.jpg';
 import linda from '../assets/linda.jpg';
 import jill from '../assets/jill.jpg';
+import { numberFromPLayer } from "../tools";
 
 export const maxBonusPoints = 2;
 
@@ -177,6 +178,17 @@ const maxPlayerPoints = 14.5;
 
 export const playersAreValidTeam = (players: Array<Player>): boolean => {
   if (players.length > 5) {
+    return false;
+  }
+  if (players.length < 1) {
+    return false;
+  }
+
+  const playerNumbers = players.map(numberFromPLayer);
+  const teamHasDuplicates = playerNumbers.some((playerNumber, index) => {
+    return playerNumbers.indexOf(playerNumber) !== index
+  });
+  if (teamHasDuplicates) {
     return false;
   }
 

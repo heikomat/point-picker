@@ -19,3 +19,7 @@ export function sortByPoints(players: Array<Player>): Array<Player> {
 export function playerFromNumber(playerNumber: number): Player {
   return playersByNumber[playerNumber];
 }
+
+export function numberFromPLayer(player: Player): number {
+  return player.number;
+}

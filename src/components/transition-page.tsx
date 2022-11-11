@@ -1,7 +1,8 @@
 import { Box, Button, Flex, Grid } from "@chakra-ui/react";
-import { memo, useCallback, useEffect, useMemo, useState } from "react";
+import { memo, useCallback, useContext, useEffect, useMemo, useState } from "react";
 import { Player, playerCanBeSelected, players, playersAreValidTeam, playersByNumber } from "../contracts";
-import { addPlayer, playerFromNumber, sortByPoints, subtractPlayer } from "../tools";
+import { GameTransitionContext } from "../game-transition-context";
+import { addPlayer, numberFromPLayer, playerFromNumber, sortByPoints, subtractPlayer } from "../tools";
 import { InactivePlayers } from "./inactive-players/inactive-players";
 import { Game } from "./picker-page";
 import { PlayerList } from "./player-list";
@@ -10,13 +11,15 @@ import { SelectedPlayers } from "./selected-players/selected-players";
 type Props = {
   page: string
   game?: Game
-  onApply?: (newGame: Game) => void;
+  onApply?: (newSelectedPlayersNumbers: Array<number>) => void;
 }
 
 const borderStyleDark = "1px solid #494949"
 
 function TransitionPageComponent(props: Props) {
-  const {page, game} = props;
+  const {page, game, onApply} = props;
+
+  const {applyTransition} = useContext(GameTransitionContext);
 
   const [playersIn, setPlayersIn] = useState<Array<Player>>([]);
   const [playersOut, setPlayersOut] = useState<Array<Player>>([]);
@@ -29,10 +32,6 @@ function TransitionPageComponent(props: Props) {
   const inactivePlayers = useMemo(() => {
     return game?.inactivePlayerNumbers.map(playerFromNumber);
   }, [game?.inactivePlayerNumbers]);
-
-  const handleApplyGame = useCallback(() => {
-
-  }, []);
 
 
   const removePlayerFromGame = useCallback((player: Player) => {
@@ -60,15 +59,11 @@ function TransitionPageComponent(props: Props) {
   }, []);
 
   const playersInNumbers = useMemo(() => {
-    return new Set(playersIn.map((player) => {
-      return player.number;
-    }))
+    return new Set(playersIn.map(numberFromPLayer))
   }, [playersIn]);
 
   const playersOutNumbers = useMemo(() => {
-    return new Set(playersOut.map((player) => {
-      return player.number;
-    }))
+    return new Set(playersOut.map(numberFromPLayer))
   }, [playersOut]);
 
   const currentGame = useMemo(() => {
@@ -88,6 +83,10 @@ function TransitionPageComponent(props: Props) {
     ];
   }, [currentGame, playersIn, playersOutNumbers]);
 
+  const handleApplyGame = useCallback(() => {
+    applyTransition?.(game?.id, newGame.map(numberFromPLayer))
+  }, [applyTransition, game?.id, newGame]);
+
   const benchPlayers = useMemo(() => {
     const inactivePlayerNumbers = new Set(game?.inactivePlayerNumbers);
     const oldSelectedPlayersNumbers = new Set(game?.selectedPlayerNumbers);
@@ -104,9 +103,8 @@ function TransitionPageComponent(props: Props) {
     return new Set(players
       .filter((player) => {
         return !playerCanBeSelected(newGame, player);
-      }).map((player) => {
-        return player.number;
-      }));
+      })
+      .map(numberFromPLayer));
   }, [newGame]);
 
   const transitionIsValid = useMemo(() => {
@@ -163,7 +161,7 @@ function TransitionPageComponent(props: Props) {
       </Flex>
       <Flex gridArea="apply" padding = "8px">
         <Button colorScheme="teal" width="100%" disabled={!transitionIsValid} onClick={handleApplyGame}>
-          {`${game?.name} Übernehmen`}
+          {`${game?.title} Übernehmen`}
         </Button>
       </Flex>
     </Grid>

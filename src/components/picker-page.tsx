@@ -1,14 +1,16 @@
 import { Button, Flex } from "@chakra-ui/react";
-import { memo, useCallback, useMemo, useState } from "react";
+import { memo, useCallback, useContext, useEffect, useMemo, useState } from "react";
 import { PlayerOverview } from "./player-overview/player-overview";
 import { SelectedPlayers } from "./selected-players/selected-players";
 import { Player, playerCanBeSelected, players } from "../contracts";
 import { PlayerSelectionContext } from "../player-selection-context";
 import { InactivePlayers } from "./inactive-players/inactive-players";
-import { subtractPlayer, addPlayer as toolsAddPlayer } from "../tools";
+import { subtractPlayer, addPlayer as toolsAddPlayer, playerFromNumber, numberFromPLayer } from "../tools";
+import { GameTransitionContext } from "../game-transition-context";
 
 export type Game = {
-  name: string;
+  id: string;
+  title: string;
   selectedPlayerNumbers: Array<number>;
   inactivePlayerNumbers: Array<number>;
 }
@@ -16,11 +18,12 @@ export type Game = {
 type Props = {
   page: string;
   title: string;
-  startTransition: (game: Game) => void;
 }
 
 function PickerPageComponent(props: Props) {
-  const {page, title, startTransition} = props;
+  const {page, title} = props;
+
+  const {startTransition, lastAppliedTransition} = useContext(GameTransitionContext);
 
   const [{initialSelectedPlayers, initialInactivePlayers}] = useState(() => {
     const initialSetup = localStorage.getItem(`pickedPlayers-${page}`);
@@ -46,6 +49,12 @@ function PickerPageComponent(props: Props) {
 
   const [selectedPlayers, setSelectedPlayers] = useState<Array<Player>>(initialSelectedPlayers);
   const [inactivePlayers, setInactivePlayers] = useState<Array<Player>>(initialInactivePlayers);
+
+  useEffect(() => {
+    if (lastAppliedTransition?.gameId === page) {
+      setSelectedPlayers(lastAppliedTransition?.selectedPlayerNumbers.map(playerFromNumber))
+    }
+  }, [lastAppliedTransition, page])
 
   const addPlayer = useCallback((player: Player) => {
     setSelectedPlayers((selectedPlayers) => {
@@ -87,15 +96,12 @@ function PickerPageComponent(props: Props) {
 
   const currentGame = useMemo(() => {
     return {
-      name: title,
-      selectedPlayerNumbers: selectedPlayers.map((player) => {
-        return player.number;
-      }),
-      inactivePlayerNumbers: inactivePlayers.map((player) => {
-        return player.number;
-      }),
+      id: page,
+      title: title,
+      selectedPlayerNumbers: selectedPlayers.map(numberFromPLayer),
+      inactivePlayerNumbers: inactivePlayers.map(numberFromPLayer),
     }
-  }, [inactivePlayers, title, selectedPlayers]);
+  }, [page, title, selectedPlayers, inactivePlayers]);
 
   const playerSelectionContext = useMemo(() => {
     localStorage.setItem(`pickedPlayers-${page}`, JSON.stringify(currentGame));

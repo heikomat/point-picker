@@ -3,6 +3,7 @@ import { memo, ReactElement, useCallback, useContext, useEffect, useMemo, useSta
 import { Flex, Grid } from "@chakra-ui/react";
 import { OverviewPlayer, overviewPlayerWidth } from "./overview-player";
 import { PlayerSelectionContext } from "../../player-selection-context";
+import { numberFromPLayer } from "../../tools";
 
 const maxColumns = 2;
 const playersByPoints: {[key: string]: Array<Player>} = {};
@@ -23,9 +24,7 @@ const PlayerOverviewComponent = (): ReactElement => {
       .filter((player) => {
         return playerCanBeSelected(selectedPlayers, player)
       })
-      .map((player) => {
-        return player.number
-      })
+      .map(numberFromPLayer)
     );
   }, [selectedPlayers]);
 
@@ -53,9 +52,7 @@ const PlayerOverviewComponent = (): ReactElement => {
   }, [inactivePlayerNumbers]);
 
   const selectedPlayerNumbers = useMemo(() => {
-    return new Set(selectedPlayers.map((player) => {
-      return player.number;
-    }))
+    return new Set(selectedPlayers.map(numberFromPLayer))
   }, [selectedPlayers]);
 
   const handlePlayerClick = useCallback((player: Player) => {
