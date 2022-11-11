@@ -124,14 +124,16 @@ function PickerPageComponent(props: Props) {
   return (
     <Flex height="100%" direction="column">
       <PlayerSelectionContext.Provider value={playerSelectionContext}>
-        <Flex>
+        <Flex padding="12px">
           <InactivePlayers inactivePlayers={inactivePlayers} makePlayerActive={makePlayerActive}/>
           <Button onClick={handleTransitionClick}>Transition</Button>
         </Flex>
         <Flex grow="1" minHeight="0">
           <PlayerOverview />
         </Flex>
-        <SelectedPlayers selectedPlayers={selectedPlayers} removePlayer={removePlayer} />
+        <Flex padding="8px">
+          <SelectedPlayers selectedPlayers={selectedPlayers} removePlayer={removePlayer} />
+        </Flex>
       </PlayerSelectionContext.Provider>
     </Flex>
   );

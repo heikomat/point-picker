@@ -1,5 +1,6 @@
 import { Box, Button, Flex, Grid } from "@chakra-ui/react";
 import { memo, useCallback, useContext, useEffect, useMemo, useState } from "react";
+import { playerBlock } from "../assets/styles";
 import { Player, playerCanBeSelected, players, playersAreValidTeam, playersByNumber } from "../contracts";
 import { GameTransitionContext } from "../game-transition-context";
 import { addPlayer, numberFromPLayer, playerFromNumber, sortByPoints, subtractPlayer } from "../tools";
@@ -14,8 +15,6 @@ type Props = {
   onApply?: (newSelectedPlayersNumbers: Array<number>) => void;
 }
 
-const borderStyleDark = "1px solid #494949"
-
 function TransitionPageComponent(props: Props) {
   const {page, game, onApply} = props;
 
@@ -24,10 +23,14 @@ function TransitionPageComponent(props: Props) {
   const [playersIn, setPlayersIn] = useState<Array<Player>>([]);
   const [playersOut, setPlayersOut] = useState<Array<Player>>([]);
 
-  useEffect(() => {
+  const resetTransition = useCallback(() => {
     setPlayersIn([]);
     setPlayersOut([]);
-  }, [game])
+  }, []);
+
+  useEffect(() => {
+    resetTransition();
+  }, [game, resetTransition]);
 
   const inactivePlayers = useMemo(() => {
     return game?.inactivePlayerNumbers.map(playerFromNumber);
@@ -85,11 +88,13 @@ function TransitionPageComponent(props: Props) {
 
   const handleApplyGame = useCallback(() => {
     applyTransition?.(game?.id, newGame.map(numberFromPLayer))
-  }, [applyTransition, game?.id, newGame]);
+    resetTransition();
+  }, [applyTransition, game?.id, newGame, resetTransition]);
 
   const benchPlayers = useMemo(() => {
     const inactivePlayerNumbers = new Set(game?.inactivePlayerNumbers);
     const oldSelectedPlayersNumbers = new Set(game?.selectedPlayerNumbers);
+    console.log(players);
     return sortByPoints(players
       .filter((player) => {
         const playerIsInactive = inactivePlayerNumbers.has(player.number)
@@ -114,32 +119,31 @@ function TransitionPageComponent(props: Props) {
   console.log('transitionIsValid', transitionIsValid)
 
   return (
-    <Grid height="100%" templateColumns={"1fr 1fr"} templateRows="min-content 1fr 250px min-content min-content" templateAreas={`
+    <Grid height="100%" templateColumns={"1fr 1fr"} templateRows="min-content 3fr 2fr min-content min-content" gap="8px" padding="8px" templateAreas={`
       "inactive     inactive"
       "current_game bench   "
       "out          in      "
       "new_game     new_game"
       "apply        apply   "
     `}>
-      <Flex gridArea="inactive" borderBottom={borderStyleDark}>
+      <Flex gridArea="inactive">
         <InactivePlayers inactivePlayers={inactivePlayers} />
       </Flex>
       <PlayerList
         gridArea="current_game"
-        borderBottom={borderStyleDark}
         title="Altes Feld"
         players={currentGame}
         showPointSum
         onPlayerClick={removePlayerFromGame}
+        {...playerBlock}
       />
       <PlayerList
         gridArea="bench"
-        borderLeft={borderStyleDark}
-        borderBottom={borderStyleDark}
         title="Bank"
         players={benchPlayers}
         onPlayerClick={addPlayerFromBench}
         greyedOutPlayers={unselectablePlayerNumbers}
+        {...playerBlock}
       />
       <PlayerList
         gridArea="out"
@@ -147,23 +151,22 @@ function TransitionPageComponent(props: Props) {
         players={playersOut}
         showPointSum
         onPlayerClick={readdPlayerToGame}
+        {...playerBlock}
       />
       <PlayerList
         gridArea="in"
-        borderLeft={borderStyleDark}
         title="Rein"
         players={playersIn}
         showPointSum
         onPlayerClick={readdPlayerToBench}
+        {...playerBlock}
       />
       <Flex gridArea="new_game" height="100%" minHeight="0">
         <SelectedPlayers selectedPlayers={newGame} title="Neues Feld" />
       </Flex>
-      <Flex gridArea="apply" padding = "8px">
-        <Button colorScheme="teal" width="100%" disabled={!transitionIsValid} onClick={handleApplyGame}>
-          {`${game?.title} Übernehmen`}
-        </Button>
-      </Flex>
+      <Button gridArea="apply" colorScheme="teal" width="100%" disabled={!transitionIsValid} onClick={handleApplyGame}>
+        {`${game?.title} Übernehmen`}
+      </Button>
     </Grid>
   );
 }

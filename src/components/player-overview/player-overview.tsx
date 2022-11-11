@@ -4,6 +4,7 @@ import { Flex, Grid } from "@chakra-ui/react";
 import { OverviewPlayer, overviewPlayerWidth } from "./overview-player";
 import { PlayerSelectionContext } from "../../player-selection-context";
 import { numberFromPLayer } from "../../tools";
+import { playerBlock } from "../../assets/styles";
 
 const maxColumns = 2;
 const playersByPoints: {[key: string]: Array<Player>} = {};
@@ -107,7 +108,7 @@ const PlayerOverviewComponent = (): ReactElement => {
         }
 
         return (
-          <Flex key={points} direction="column" width={`calc(${blockWidth}% - 9px)`} backgroundColor="gray.100" boxShadow="1px 1px 3px 0px #c0c0c0" borderRadius="5px" padding="5px" gap="8px" >
+          <Flex key={points} direction="column" width={`calc(${blockWidth}% - 9px)`} {...playerBlock} padding="5px" gap="8px" >
             <Flex justifyContent="start" fontWeight="bold" width="100%">{points + ' Pt.'}</Flex>
             <Grid templateColumns={`repeat(${columnsToOccupy}, 1fr)`} rowGap="8px" alignItems="start" justifyItems="center">
               {players.map((player) => {

@@ -16,7 +16,7 @@ const InactivePlayersComponent = (props: Props): ReactElement => {
   const { isOpen, onToggle } = useDisclosure()
 
   return (
-      <Flex width="100%" padding="12px" onClick={onToggle}>
+      <Flex width="100%" onClick={onToggle}>
         <Flex direction="column" width="100%" border="1px solid #cecece" borderRadius="5px" padding="5px"  backgroundColor="gray.200">
           <Flex justifyContent="start" fontWeight="bold" width="100%">{`Inaktiv (${inactivePlayers.length})`}</Flex>
             <Collapse in={isOpen} animateOpacity>

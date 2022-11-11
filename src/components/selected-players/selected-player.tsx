@@ -17,7 +17,7 @@ const SelectedPlayerComponent = (props: Props): ReactElement => {
 
   return (
     <Flex
-      width="50px"
+      width="46px"
       direction="column"
       textAlign="center"
       fontSize="16px"

@@ -1,5 +1,6 @@
 import { Box, Flex } from "@chakra-ui/react";
 import { memo, ReactElement, useMemo } from "react";
+import { playerBlock } from "../../assets/styles";
 import { Player } from "../../contracts";
 import { SelectedPlayer } from "./selected-player";
 
@@ -29,18 +30,18 @@ const SelectedPlayersComponent = (props: Props): ReactElement => {
   const remainingPoints = 14.5 - totalPoints;
   return (
     <Flex
+      {...playerBlock}
       direction="column"
       width="100%"
-      height="119px"
+      height="114px"
       backgroundColor="blue.50"
-      // boxShadow="0px 0px 8px 0px #959595"
-      border="1px solid #cecece"
+      border="1px solid #e0e0e0"
       padding="8px"
       shrink="0"
     >
       <Box fontWeight="bold" paddingBottom="4px">{title}</Box>
       <Flex height="100%">
-        <Flex gap="8px" alignItems="start">
+        <Flex gap="4px" alignItems="start">
           {sortedSelectedPlayers.map((player) => {
             return <SelectedPlayer key={player.number} player={player} onClick={removePlayer}/>
           })}
