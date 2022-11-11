@@ -29,6 +29,7 @@ function App() {
       gameId: gameId,
       selectedPlayerNumbers: selectedPlayerNumbers,
     });
+    setCurrentTransitionGame(undefined);
 
     if (gameId === 'first-game') {
       setTabIndex(0);
@@ -66,21 +67,21 @@ function App() {
         <GameTransitionContext.Provider value={gameTransitionContext}>
           <Tabs isFitted height="100%" display="flex" flexDirection="column" index={tabIndex} onChange={handleTabsChange}>
             <TabList>
-              <Tab>1. Spiel</Tab>
-              <Tab>2. Spiel</Tab>
-              <Tab>Playground</Tab>
-              <Tab>Transition</Tab>
+              <Tab>Spiel 1</Tab>
+              <Tab>Spiel 2</Tab>
+              <Tab>Test</Tab>
+              <Tab whiteSpace="nowrap" isDisabled={currentTransitionGame === undefined}>{currentTransitionGame === undefined ? 'Transition' : `🔁 ${currentTransitionGame?.title}`}</Tab>
             </TabList>
 
             <TabPanels overflow="hidden" height="100%">
               <TabPanel padding="0" height="100%">
-                <PickerPage page="first-game" title="1. Spiel"/>
+                <PickerPage page="first-game" title="Spiel 1"/>
               </TabPanel>
               <TabPanel padding="0" height="100%">
-                <PickerPage page="second-game" title="2. Spiel"/>
+                <PickerPage page="second-game" title="Spiel 2"/>
               </TabPanel>
               <TabPanel padding="0" height="100%">
-                <PickerPage page="playground" title="Playground"/>
+                <PickerPage page="playground" title="Test"/>
               </TabPanel>
               <TabPanel padding="0" height="100%">
                 <TransitionPage page="transition" game={currentTransitionGame} />
