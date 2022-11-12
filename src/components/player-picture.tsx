@@ -5,6 +5,7 @@ import { Player } from "../contracts";
 type Props = {
   player: Player
   showNumber?: boolean;
+  isNew?: boolean
 }
 
 const imageStyle = {
@@ -12,8 +13,9 @@ const imageStyle = {
 }
 
 const PlayerPictureComponent = (props: Props): ReactElement => {
-  const {player, showNumber = true} = props;
+  const {player, showNumber = true, isNew = false} = props;
 
+  const borderStyle = isNew ? '3px solid #2ec61f' : '1px solid #7e8cef';
   // TODO: numbers have spacing to bottom. remove it
   return (
     <Box
@@ -21,7 +23,7 @@ const PlayerPictureComponent = (props: Props): ReactElement => {
       width="100%"
       style={imageStyle}
       borderRadius="5px"
-      border="1px solid #7e8cef"
+      border={borderStyle}
       backgroundSize="cover"
       position="relative"
       overflow="hidden"
@@ -41,9 +43,7 @@ const PlayerPictureComponent = (props: Props): ReactElement => {
         </Box>
       )}
       {!player.isDisabled && (
-        <Box width="45%" height="45%" backgroundColor="red.600" transform="rotate(45deg)" right="-22.5%" bottom="-22.5%" position="absolute">
-
-        </Box>
+        <Box width="45%" height="45%" backgroundColor="red.600" transform="rotate(45deg)" right="-22.5%" bottom="-22.5%" position="absolute" />
       )}
     </Box>
   );

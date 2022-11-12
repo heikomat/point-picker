@@ -116,6 +116,14 @@ function TransitionPageComponent(props: Props) {
     return playersAreValidTeam(newGame);
   }, [newGame]);
 
+  const handleRemovePlayerFromNewGame = useCallback((player: Player) => {
+    if (playersInNumbers.has(player.number)) {
+      readdPlayerToBench(player);
+    } else {
+      removePlayerFromGame(player);
+    }
+  }, [playersInNumbers, readdPlayerToBench, removePlayerFromGame])
+
   console.log('transitionIsValid', transitionIsValid)
 
   return (
@@ -162,7 +170,7 @@ function TransitionPageComponent(props: Props) {
         {...playerBlock}
       />
       <Flex gridArea="new_game" height="100%" minHeight="0">
-        <SelectedPlayers selectedPlayers={newGame} title="Neues Feld" />
+        <SelectedPlayers selectedPlayers={newGame} title="Neues Feld" removePlayer={handleRemovePlayerFromNewGame} newPlayerNumbers={playersInNumbers}/>
       </Flex>
       <Button gridArea="apply" colorScheme="teal" width="100%" disabled={!transitionIsValid} onClick={handleApplyGame}>
         {`${game?.title} Übernehmen`}

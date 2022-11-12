@@ -6,10 +6,11 @@ import { PlayerPicture } from "../player-picture";
 type Props = {
   player: Player;
   onClick?: (player: Player) => void
+  isNew?: boolean;
 }
 
 const SelectedPlayerComponent = (props: Props): ReactElement => {
-  const {player, onClick} = props;
+  const {player, onClick, isNew} = props;
 
   const handleClick = useCallback(() => {
     onClick?.(player);
@@ -24,7 +25,7 @@ const SelectedPlayerComponent = (props: Props): ReactElement => {
       whiteSpace="nowrap"
       onClick={handleClick}
     >
-      <PlayerPicture player={player}/>
+      <PlayerPicture player={player} isNew={isNew}/>
       {`${player.totalPoints} pt`}
     </Flex>
   );

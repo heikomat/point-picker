@@ -8,10 +8,16 @@ type Props = {
   selectedPlayers: Array<Player>
   removePlayer?: (player: Player) => void;
   title?: string
+  newPlayerNumbers?: Set<number>;
 }
 
 const SelectedPlayersComponent = (props: Props): ReactElement => {
-  const {selectedPlayers, removePlayer, title="Kader"} = props;
+  const {
+    selectedPlayers,
+    removePlayer,
+    title="Kader",
+    newPlayerNumbers,
+  } = props;
 
   const sortedSelectedPlayers = useMemo(() => {
     return selectedPlayers.sort((player1, player2) => {
@@ -43,7 +49,7 @@ const SelectedPlayersComponent = (props: Props): ReactElement => {
       <Flex height="100%">
         <Flex gap="4px" alignItems="start">
           {sortedSelectedPlayers.map((player) => {
-            return <SelectedPlayer key={player.number} player={player} onClick={removePlayer}/>
+            return <SelectedPlayer key={player.number} player={player} onClick={removePlayer} isNew={newPlayerNumbers?.has(player.number)}/>
           })}
         </Flex>
         {
