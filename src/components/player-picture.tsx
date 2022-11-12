@@ -5,7 +5,8 @@ import { Player } from "../contracts";
 type Props = {
   player: Player
   showNumber?: boolean;
-  isNew?: boolean
+  isNew?: boolean;
+  isOld?: boolean;
 }
 
 const imageStyle = {
@@ -13,10 +14,11 @@ const imageStyle = {
 }
 
 const PlayerPictureComponent = (props: Props): ReactElement => {
-  const {player, showNumber = true, isNew = false} = props;
+  const {player, showNumber = true, isNew = false, isOld = false} = props;
 
-  const borderStyle = isNew ? '3px solid #2ec61f' : '1px solid #7e8cef';
-  // TODO: numbers have spacing to bottom. remove it
+  let borderStyle = isNew ? '3px solid #2ec61f' : '1px solid #7e8cef';
+  borderStyle = isOld ? '3px solid #c64b1f' : borderStyle;
+
   return (
     <Box
       backgroundImage={player.image}

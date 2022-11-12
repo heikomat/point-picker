@@ -160,6 +160,8 @@ function TransitionPageComponent(props: Props) {
         showPointSum
         onPlayerClick={readdPlayerToGame}
         {...playerBlock}
+        showAsOld
+        backgroundColor="red.50"
       />
       <PlayerList
         gridArea="in"
@@ -168,6 +170,8 @@ function TransitionPageComponent(props: Props) {
         showPointSum
         onPlayerClick={readdPlayerToBench}
         {...playerBlock}
+        showAsNew
+        backgroundColor="green.50"
       />
       <Flex gridArea="new_game" height="100%" minHeight="0">
         <SelectedPlayers selectedPlayers={newGame} title="Neues Feld" removePlayer={handleRemovePlayerFromNewGame} newPlayerNumbers={playersInNumbers}/>
