@@ -1,27 +1,27 @@
 {
   "files": {
-    "main.css": "/static/css/main.55bdd6b4.css",
-    "main.js": "/static/js/main.3238744c.js",
-    "static/media/richard.jpg": "/static/media/richard.177afeb39e20b06a9c3c.jpg",
-    "static/media/jill.jpg": "/static/media/jill.73355de1fc9f1f30b169.jpg",
-    "static/media/anna.jpg": "/static/media/anna.142368256ee8d0228cd5.jpg",
-    "static/media/yannik.jpg": "/static/media/yannik.dbc987f592bd22536382.jpg",
-    "static/media/heiko.jpg": "/static/media/heiko.189bab9aaf0db7d14471.jpg",
-    "static/media/svenkaiser.jpg": "/static/media/svenkaiser.4dd65837fda0976bbca1.jpg",
-    "static/media/robin.jpg": "/static/media/robin.0f11e976af65e2c546e1.jpg",
-    "static/media/mike.jpg": "/static/media/mike.7715543f458db3125695.jpg",
-    "static/media/svenkuehne.jpg": "/static/media/svenkuehne.02e9cf7ade1a8066c799.jpg",
-    "static/media/johannes.jpg": "/static/media/johannes.2156a3285587d4318925.jpg",
-    "static/media/linda.jpg": "/static/media/linda.7cab3ff16db9e0d21cd4.jpg",
-    "static/media/jakobus.jpg": "/static/media/jakobus.87acbdf71a12927ecfa2.jpg",
-    "static/media/philippe.jpg": "/static/media/philippe.733f1dccd65334ab7b0d.jpg",
-    "static/media/jana.jpg": "/static/media/jana.3daecf521a0d153ca7f0.jpg",
-    "index.html": "/index.html",
-    "main.55bdd6b4.css.map": "/static/css/main.55bdd6b4.css.map",
-    "main.3238744c.js.map": "/static/js/main.3238744c.js.map"
+    "main.css": "/point-picker/static/css/main.55bdd6b4.css",
+    "main.js": "/point-picker/static/js/main.dd599deb.js",
+    "static/media/richard.jpg": "/point-picker/static/media/richard.177afeb39e20b06a9c3c.jpg",
+    "static/media/jill.jpg": "/point-picker/static/media/jill.73355de1fc9f1f30b169.jpg",
+    "static/media/anna.jpg": "/point-picker/static/media/anna.142368256ee8d0228cd5.jpg",
+    "static/media/yannik.jpg": "/point-picker/static/media/yannik.dbc987f592bd22536382.jpg",
+    "static/media/heiko.jpg": "/point-picker/static/media/heiko.189bab9aaf0db7d14471.jpg",
+    "static/media/svenkaiser.jpg": "/point-picker/static/media/svenkaiser.4dd65837fda0976bbca1.jpg",
+    "static/media/robin.jpg": "/point-picker/static/media/robin.0f11e976af65e2c546e1.jpg",
+    "static/media/mike.jpg": "/point-picker/static/media/mike.7715543f458db3125695.jpg",
+    "static/media/svenkuehne.jpg": "/point-picker/static/media/svenkuehne.02e9cf7ade1a8066c799.jpg",
+    "static/media/johannes.jpg": "/point-picker/static/media/johannes.2156a3285587d4318925.jpg",
+    "static/media/linda.jpg": "/point-picker/static/media/linda.7cab3ff16db9e0d21cd4.jpg",
+    "static/media/jakobus.jpg": "/point-picker/static/media/jakobus.87acbdf71a12927ecfa2.jpg",
+    "static/media/philippe.jpg": "/point-picker/static/media/philippe.733f1dccd65334ab7b0d.jpg",
+    "static/media/jana.jpg": "/point-picker/static/media/jana.3daecf521a0d153ca7f0.jpg",
+    "index.html": "/point-picker/index.html",
+    "main.55bdd6b4.css.map": "/point-picker/static/css/main.55bdd6b4.css.map",
+    "main.dd599deb.js.map": "/point-picker/static/js/main.dd599deb.js.map"
   },
   "entrypoints": [
     "static/css/main.55bdd6b4.css",
-    "static/js/main.3238744c.js"
+    "static/js/main.dd599deb.js"
   ]
 }
