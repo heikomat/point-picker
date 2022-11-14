@@ -84,7 +84,7 @@ function App() {
                 <PickerPage page="playground" title="Test"/>
               </TabPanel>
               <TabPanel padding="0" height="100%">
-                <TransitionPage page="transition" game={currentTransitionGame} />
+                <TransitionPage game={currentTransitionGame} />
               </TabPanel>
             </TabPanels>
           </Tabs>
