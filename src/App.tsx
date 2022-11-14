@@ -67,7 +67,7 @@ function App() {
         <GameTransitionContext.Provider value={gameTransitionContext}>
           <Tabs isFitted height="100%" display="flex" flexDirection="column" index={tabIndex} onChange={handleTabsChange}>
             <TabList>
-              <Tab>Spiel 1</Tab>
+              <Tab>Spiel 1-test</Tab>
               <Tab>Spiel 2</Tab>
               <Tab>Test</Tab>
               <Tab whiteSpace="nowrap" isDisabled={currentTransitionGame === undefined}>{currentTransitionGame === undefined ? 'Transition' : `🔁 ${currentTransitionGame?.title}`}</Tab>
