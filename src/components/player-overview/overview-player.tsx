@@ -40,7 +40,6 @@ const OverviewPlayerComponent = (props: Props): ReactElement => {
   });
 
   const fontSize = playerWidth < overviewPlayerWidth ? '10px' : '12px';
-  // TODO: Show icon when in kader
 
   return (
     <Flex

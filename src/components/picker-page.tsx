@@ -145,7 +145,6 @@ function PickerPageComponent(props: Props) {
     })
   }, []);
 
-  console.log(playerSelectionContext)
   return (
     <Flex height="100%" direction="column">
       <PlayerSelectionContext.Provider value={playerSelectionContext}>

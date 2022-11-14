@@ -1,7 +1,7 @@
-import { Box, Button, Flex, Grid } from "@chakra-ui/react";
+import { Button, Flex, Grid } from "@chakra-ui/react";
 import { memo, useCallback, useContext, useEffect, useMemo, useState } from "react";
 import { playerBlock } from "../assets/styles";
-import { Player, playerCanBeSelected, players, playersAreValidTeam, playersByNumber } from "../contracts";
+import { Player, playerCanBeSelected, players, playersAreValidTeam } from "../contracts";
 import { GameTransitionContext } from "../game-transition-context";
 import { addPlayer, numberFromPLayer, playerFromNumber, sortByPoints, subtractPlayer } from "../tools";
 import { InactivePlayers } from "./inactive-players/inactive-players";
@@ -10,13 +10,11 @@ import { PlayerList } from "./player-list";
 import { SelectedPlayers } from "./selected-players/selected-players";
 
 type Props = {
-  page: string
   game?: Game
-  onApply?: (newSelectedPlayersNumbers: Array<number>) => void;
 }
 
 function TransitionPageComponent(props: Props) {
-  const {page, game, onApply} = props;
+  const {game} = props;
 
   const {applyTransition} = useContext(GameTransitionContext);
 
@@ -94,7 +92,6 @@ function TransitionPageComponent(props: Props) {
   const benchPlayers = useMemo(() => {
     const inactivePlayerNumbers = new Set(game?.inactivePlayerNumbers);
     const oldSelectedPlayersNumbers = new Set(game?.selectedPlayerNumbers);
-    console.log(players);
     return sortByPoints(players
       .filter((player) => {
         const playerIsInactive = inactivePlayerNumbers.has(player.number)
@@ -123,8 +120,6 @@ function TransitionPageComponent(props: Props) {
       removePlayerFromGame(player);
     }
   }, [playersInNumbers, readdPlayerToBench, removePlayerFromGame])
-
-  console.log('transitionIsValid', transitionIsValid)
 
   return (
     <Grid height="100%" templateColumns={"1fr 1fr"} templateRows="min-content 3fr 2fr min-content min-content" gap="8px" padding="8px" templateAreas={`

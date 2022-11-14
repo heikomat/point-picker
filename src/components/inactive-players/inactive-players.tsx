@@ -1,7 +1,6 @@
 import { Collapse, Flex, Grid, useDisclosure } from "@chakra-ui/react";
-import { memo, ReactElement, useContext } from "react";
+import { memo, ReactElement } from "react";
 import { Player } from "../../contracts";
-import { PlayerSelectionContext } from "../../player-selection-context";
 import { OverviewPlayer } from "../player-overview/overview-player";
 
 const playerWidth = 50;
