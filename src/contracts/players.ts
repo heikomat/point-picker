@@ -173,7 +173,7 @@ for (const player of players) {
   playersByNumber[player.number] = player;
 }
 
-const maxNBs = 2;
+// const maxNBs = 2;
 const maxPlayerPoints = 14.5;
 
 export const playersAreValidTeam = (players: Array<Player>): boolean => {
