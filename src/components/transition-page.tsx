@@ -141,7 +141,6 @@ function TransitionPageComponent(props: Props) {
         gridArea="current_game"
         title="Altes Feld"
         players={currentGame}
-        showPointSum
         onPlayerClick={removePlayerFromGame}
         {...playerBlock}
       />
