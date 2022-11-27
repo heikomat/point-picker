@@ -1,18 +1,19 @@
 import { Bonus, bonusPoints } from "./bonuses";
-import anna from '../assets/anna.jpg';
-import mike from '../assets/mike.jpg';
-import richard from '../assets/richard.jpg';
-import yannik from '../assets/yannik.jpg';
-import jana from '../assets/jana.jpg';
-import robin from '../assets/robin.jpg';
-import svenkuehne from '../assets/svenkuehne.jpg';
-import svenkaiser from '../assets/svenkaiser.jpg';
-import johannes from '../assets/johannes.jpg';
-import heiko from '../assets/heiko.jpg';
-import jakobus from '../assets/jakobus.jpg';
-import philippe from '../assets/philippe.jpg';
-import linda from '../assets/linda.jpg';
-import jill from '../assets/jill.jpg';
+import anna from '../assets/anna.webp';
+import mike from '../assets/mike.webp';
+import richard from '../assets/richard.webp';
+import yannik from '../assets/yannik.webp';
+import jana from '../assets/jana.webp';
+import robin from '../assets/robin.webp';
+import svenkuehne from '../assets/svenkuehne.webp';
+import svenkaiser from '../assets/svenkaiser.webp';
+import johannes from '../assets/johannes.webp';
+import heiko from '../assets/heiko.webp';
+import jakobus from '../assets/jakobus.webp';
+import philippe from '../assets/philippe.webp';
+import linda from '../assets/linda.webp';
+import jill from '../assets/jill.webp';
+import andre from '../assets/andre.webp';
 import { numberFromPLayer } from "../tools";
 
 export const maxBonusPoints = 2;
@@ -157,7 +158,13 @@ export const players: Array<Player> = [{
   image: jill,
   ...getName('Jill', 'Kaiser-Föhles'),
   ...getPointInfo(3, [Bonus.Woman])
-}].sort((player1, player2) => {
+}, {
+  isDisabled: false,
+  number: 22,
+  image: andre,
+  ...getName('André', 'Kostka'),
+  ...getPointInfo(4.5, [])
+},].sort((player1, player2) => {
   if (player1.displayName > player2.displayName) {
     return 1;
   }
