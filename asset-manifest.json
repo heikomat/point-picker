@@ -1,27 +1,28 @@
 {
   "files": {
     "main.css": "/static/css/main.55bdd6b4.css",
-    "main.js": "/static/js/main.7a74f80f.js",
-    "static/media/richard.jpg": "/static/media/richard.177afeb39e20b06a9c3c.jpg",
-    "static/media/jill.jpg": "/static/media/jill.73355de1fc9f1f30b169.jpg",
-    "static/media/anna.jpg": "/static/media/anna.142368256ee8d0228cd5.jpg",
-    "static/media/yannik.jpg": "/static/media/yannik.dbc987f592bd22536382.jpg",
-    "static/media/heiko.jpg": "/static/media/heiko.189bab9aaf0db7d14471.jpg",
-    "static/media/svenkaiser.jpg": "/static/media/svenkaiser.4dd65837fda0976bbca1.jpg",
-    "static/media/robin.jpg": "/static/media/robin.0f11e976af65e2c546e1.jpg",
-    "static/media/mike.jpg": "/static/media/mike.7715543f458db3125695.jpg",
-    "static/media/svenkuehne.jpg": "/static/media/svenkuehne.02e9cf7ade1a8066c799.jpg",
-    "static/media/johannes.jpg": "/static/media/johannes.2156a3285587d4318925.jpg",
-    "static/media/linda.jpg": "/static/media/linda.7cab3ff16db9e0d21cd4.jpg",
-    "static/media/jakobus.jpg": "/static/media/jakobus.87acbdf71a12927ecfa2.jpg",
-    "static/media/philippe.jpg": "/static/media/philippe.733f1dccd65334ab7b0d.jpg",
-    "static/media/jana.jpg": "/static/media/jana.3daecf521a0d153ca7f0.jpg",
+    "main.js": "/static/js/main.d9647582.js",
+    "static/media/andre.webp": "/static/media/andre.8ac37884611f7668de27.webp",
+    "static/media/richard.webp": "/static/media/richard.429f5f5a0982ab027a30.webp",
+    "static/media/jill.webp": "/static/media/jill.7cd132785c2e6879eb0b.webp",
+    "static/media/yannik.webp": "/static/media/yannik.d5debf8de8e216680750.webp",
+    "static/media/svenkaiser.webp": "/static/media/svenkaiser.4e0bd0e4747c2ce498de.webp",
+    "static/media/heiko.webp": "/static/media/heiko.8c401fae82c678641ea7.webp",
+    "static/media/anna.webp": "/static/media/anna.44e0069c70e4f2e05731.webp",
+    "static/media/robin.webp": "/static/media/robin.a77fe7275ac93ea531d4.webp",
+    "static/media/mike.webp": "/static/media/mike.deca78ebe6307856f4ab.webp",
+    "static/media/johannes.webp": "/static/media/johannes.e38c1cf2f645ec45ae3c.webp",
+    "static/media/linda.webp": "/static/media/linda.d74ea9f494f76df1efcf.webp",
+    "static/media/philippe.webp": "/static/media/philippe.1c7816bb993f1eacead2.webp",
+    "static/media/jakobus.webp": "/static/media/jakobus.eaff70031c3c3d5eaba9.webp",
+    "static/media/svenkuehne.webp": "/static/media/svenkuehne.d8d835bf07e1688b053e.webp",
+    "static/media/jana.webp": "/static/media/jana.4c11840eaf87bff27595.webp",
     "index.html": "/index.html",
     "main.55bdd6b4.css.map": "/static/css/main.55bdd6b4.css.map",
-    "main.7a74f80f.js.map": "/static/js/main.7a74f80f.js.map"
+    "main.d9647582.js.map": "/static/js/main.d9647582.js.map"
   },
   "entrypoints": [
     "static/css/main.55bdd6b4.css",
-    "static/js/main.7a74f80f.js"
+    "static/js/main.d9647582.js"
   ]
 }
