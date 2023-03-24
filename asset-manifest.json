@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/static/css/main.55bdd6b4.css",
-    "main.js": "/static/js/main.d9647582.js",
+    "main.js": "/static/js/main.0f2faea7.js",
     "static/media/andre.webp": "/static/media/andre.8ac37884611f7668de27.webp",
     "static/media/richard.webp": "/static/media/richard.429f5f5a0982ab027a30.webp",
     "static/media/jill.webp": "/static/media/jill.7cd132785c2e6879eb0b.webp",
@@ -10,6 +10,7 @@
     "static/media/heiko.webp": "/static/media/heiko.8c401fae82c678641ea7.webp",
     "static/media/anna.webp": "/static/media/anna.44e0069c70e4f2e05731.webp",
     "static/media/robin.webp": "/static/media/robin.a77fe7275ac93ea531d4.webp",
+    "static/media/patrick.webp": "/static/media/patrick.f4e3cd097c23d1fe91f2.webp",
     "static/media/mike.webp": "/static/media/mike.deca78ebe6307856f4ab.webp",
     "static/media/johannes.webp": "/static/media/johannes.e38c1cf2f645ec45ae3c.webp",
     "static/media/linda.webp": "/static/media/linda.d74ea9f494f76df1efcf.webp",
@@ -19,10 +20,10 @@
     "static/media/jana.webp": "/static/media/jana.4c11840eaf87bff27595.webp",
     "index.html": "/index.html",
     "main.55bdd6b4.css.map": "/static/css/main.55bdd6b4.css.map",
-    "main.d9647582.js.map": "/static/js/main.d9647582.js.map"
+    "main.0f2faea7.js.map": "/static/js/main.0f2faea7.js.map"
   },
   "entrypoints": [
     "static/css/main.55bdd6b4.css",
-    "static/js/main.d9647582.js"
+    "static/js/main.0f2faea7.js"
   ]
 }
