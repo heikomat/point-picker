@@ -167,10 +167,10 @@ export const players: Array<Player> = [{
   ...getPointInfo(4.5, [])
 }, {
   isDisabled: true,
-  number: 350,
+  number: 14,
   image: patrick,
   ...getName('Patrick', 'Weirauch'),
-  ...getPointInfo(1.5, [])
+  ...getPointInfo(1.0, [])
 },].sort((player1, player2) => {
   if (player1.displayName > player2.displayName) {
     return 1;
