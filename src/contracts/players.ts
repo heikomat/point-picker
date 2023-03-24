@@ -14,6 +14,7 @@ import philippe from '../assets/philippe.webp';
 import linda from '../assets/linda.webp';
 import jill from '../assets/jill.webp';
 import andre from '../assets/andre.webp';
+import patrick from '../assets/patrick.webp';
 import { numberFromPLayer } from "../tools";
 
 export const maxBonusPoints = 2;
@@ -164,6 +165,12 @@ export const players: Array<Player> = [{
   image: andre,
   ...getName('André', 'Kostka'),
   ...getPointInfo(4.5, [])
+}, {
+  isDisabled: true,
+  number: 350,
+  image: patrick,
+  ...getName('Patrick', 'Weirauch'),
+  ...getPointInfo(1.5, [])
 },].sort((player1, player2) => {
   if (player1.displayName > player2.displayName) {
     return 1;
