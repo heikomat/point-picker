@@ -15,6 +15,7 @@ import linda from '../assets/linda.webp';
 import jill from '../assets/jill.webp';
 import andre from '../assets/andre.webp';
 import patrick from '../assets/patrick.webp';
+import jarne from '../assets/jarne.webp';
 import { numberFromPLayer } from "../tools";
 
 export type Player = {
@@ -180,6 +181,7 @@ export const players: Array<Player> = [{
 }, {
   isDisabled: true,
   number: 5,
+  image: jarne,
   ...getName('Jarne', 'Schneider'),
   ...getPointInfo(4.0, [Bonus.Youth])
 }, {
