@@ -17,8 +17,6 @@ import andre from '../assets/andre.webp';
 import patrick from '../assets/patrick.webp';
 import { numberFromPLayer } from "../tools";
 
-export const maxBonusPoints = 2;
-
 export type Player = {
   firstName: string;
   lastName: string;
@@ -28,10 +26,13 @@ export type Player = {
   bonuses: Array<Bonus>;
   isDisabled: boolean,
   number: number,
-  image: string,
+  image?: string,
 }
 
 const calculateTotalPoints = (basePoints: number, bonuses: Array<Bonus>) => {
+  const playerIsWoman = bonuses.includes(Bonus.Woman);
+  const maxBonusPoints = playerIsWoman ? 2 : 1;
+
   let totalBonusPoints = 0;
   for (const bonus of bonuses) {
     totalBonusPoints += bonusPoints[bonus];
@@ -139,7 +140,7 @@ export const players: Array<Player> = [{
   isDisabled: false,
   number: 11,
   image: philippe,
-  ...getName('Philippe', 'von Parthier'),
+  ...getName('Philippe', 'Parthier'),
   ...getPointInfo(4.5, [])
 }, {
   isDisabled: false,
@@ -171,7 +172,27 @@ export const players: Array<Player> = [{
   image: patrick,
   ...getName('Patrick', 'Weirauch'),
   ...getPointInfo(1.0, [])
-},].sort((player1, player2) => {
+}, {
+  isDisabled: false,
+  number: 2,
+  ...getName('Sylvester', 'von Heereman'),
+  ...getPointInfo(4.5, [])
+}, {
+  isDisabled: true,
+  number: 5,
+  ...getName('Jarne', 'Schneider'),
+  ...getPointInfo(4.0, [Bonus.Youth])
+}, {
+  isDisabled: false,
+  number: 18,
+  ...getName('Sascha', 'Lenders'),
+  ...getPointInfo(4.5, [])
+}, {
+  isDisabled: true,
+  number: 32,
+  ...getName('Patrick', 'Kloppisch'),
+  ...getPointInfo(3.0, [])
+},].sort((player1, player2) => {
   if (player1.displayName > player2.displayName) {
     return 1;
   }

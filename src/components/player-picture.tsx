@@ -1,6 +1,7 @@
 import { Box } from "@chakra-ui/react";
 import { memo, ReactElement } from "react";
 import { Player } from "../contracts";
+import placeholder from '../assets/placeholder.webp';
 
 type Props = {
   player: Player
@@ -21,7 +22,7 @@ const PlayerPictureComponent = (props: Props): ReactElement => {
 
   return (
     <Box
-      backgroundImage={player.image}
+      backgroundImage={player.image ?? placeholder}
       width="100%"
       style={imageStyle}
       borderRadius="5px"
