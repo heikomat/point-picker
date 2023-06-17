@@ -16,6 +16,9 @@ import jill from '../assets/jill.webp';
 import andre from '../assets/andre.webp';
 import patrick from '../assets/patrick.webp';
 import jarne from '../assets/jarne.webp';
+import sylvester from '../assets/sylvester.webp';
+import sascha from '../assets/sascha.webp';
+import patrick_k from '../assets/patrick_k.webp';
 import { numberFromPLayer } from "../tools";
 
 export type Player = {
@@ -176,6 +179,7 @@ export const players: Array<Player> = [{
 }, {
   isDisabled: false,
   number: 2,
+  image: sylvester,
   ...getName('Sylvester', 'von Heereman'),
   ...getPointInfo(4.5, [])
 }, {
@@ -187,11 +191,13 @@ export const players: Array<Player> = [{
 }, {
   isDisabled: false,
   number: 18,
+  image: sascha,
   ...getName('Sascha', 'Lenders'),
   ...getPointInfo(4.5, [])
 }, {
   isDisabled: true,
   number: 32,
+  image: patrick_k,
   ...getName('Patrick', 'Kloppisch'),
   ...getPointInfo(3.0, [])
 },].sort((player1, player2) => {
