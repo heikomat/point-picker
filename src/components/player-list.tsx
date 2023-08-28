@@ -46,9 +46,16 @@ const PlayerListComponent = (props: Props): ReactElement => {
         <Flex gap="8px" direction="column" overflow="auto" px="8px" width="100%" paddingBottom="8px">
           {players.map((player) => {
             const playerIsGreyedOut = greyedOutPlayers.has(player.number);
-            return <Grid autoRows="min-content" templateColumns="50px 1fr max-content" columnGap="6px" width="100%" opacity={playerIsGreyedOut ? '0.5' : '1'}onClick={() => {
-              onPlayerClick?.(player);
-            }}>
+            return <Grid
+              key={player.number}
+              autoRows="min-content"
+              templateColumns="50px 1fr max-content"
+              columnGap="6px"
+              width="100%"
+              opacity={playerIsGreyedOut ? '0.5' : '1'}
+              onClick={() => {
+                onPlayerClick?.(player);
+              }}>
               <PlayerPicture player={player} isNew={showAsNew} isOld={showAsOld}/>
               {/*<Flex alignItems="center">{`#${player.number}`}</Flex>*/}
               <Box whiteSpace="nowrap" textOverflow="ellipsis" overflow="hidden" lineHeight="50px">{player.displayName}</Box>
