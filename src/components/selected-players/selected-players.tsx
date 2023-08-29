@@ -1,5 +1,5 @@
 import { Box, Flex } from "@chakra-ui/react";
-import { memo, ReactElement, useMemo } from "react";
+import { memo, ReactElement, useCallback, useMemo } from "react";
 import { playerBlock } from "../../assets/styles";
 import { Player } from "../../contracts";
 import { SelectedPlayer } from "./selected-player";
@@ -33,6 +33,11 @@ const SelectedPlayersComponent = (props: Props): ReactElement => {
     return result;
   }, [selectedPlayers]);
 
+  const handleClick = useCallback((player: Player) => {
+    window.navigator.vibrate(1);
+    removePlayer?.(player);
+  }, [removePlayer])
+
   const remainingPoints = 14.5 - totalPoints;
   return (
     <Flex
@@ -49,7 +54,7 @@ const SelectedPlayersComponent = (props: Props): ReactElement => {
       <Flex height="100%">
         <Flex gap="4px" alignItems="start">
           {sortedSelectedPlayers.map((player) => {
-            return <SelectedPlayer key={player.number} player={player} onClick={removePlayer} isNew={newPlayerNumbers?.has(player.number)}/>
+            return <SelectedPlayer key={player.number} player={player} onClick={handleClick} isNew={newPlayerNumbers?.has(player.number)}/>
           })}
         </Flex>
         {

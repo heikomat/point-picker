@@ -58,8 +58,10 @@ const PlayerOverviewComponent = (): ReactElement => {
 
   const handlePlayerClick = useCallback((player: Player) => {
     if (selectedPlayerNumbers.has(player.number)) {
+      window.navigator.vibrate(1);
       removePlayer?.(player)
     } else if (selectablePlayerNumbers.has(player.number)) {
+      window.navigator.vibrate(1);
       addPlayer?.(player);
     }
   }, [addPlayer, removePlayer, selectablePlayerNumbers, selectedPlayerNumbers]);

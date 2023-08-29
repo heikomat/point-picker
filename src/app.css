@@ -3,4 +3,5 @@ html, body {
 }
 body {
   position: relative;
+  touch-action: manipulation;
 }

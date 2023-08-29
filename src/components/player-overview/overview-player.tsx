@@ -32,6 +32,7 @@ const OverviewPlayerComponent = (props: Props): ReactElement => {
   const bind = useLongPress((event) => {
     event.stopPropagation();
     event.preventDefault();
+    window.navigator.vibrate(1);
     onLongPress?.(player);
   }, {
     captureEvent: true,
