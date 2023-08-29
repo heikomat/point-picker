@@ -1,3 +1,4 @@
+import { toast } from 'react-toastify';
 // This optional code is used to register a service worker.
 // register() is not called by default.
 
@@ -76,6 +77,20 @@ function registerValidSW(swUrl: string, config?: Config) {
                 'New content is available and will be used when all ' +
                   'tabs for this page are closed. See https://cra.link/PWA.'
               );
+  
+              toast.info('Update available! Click to update app.', {
+                toastId: 'appUpdateAvailable',
+                onClose: () => {
+                  window.caches.keys().then((keys) => {
+                    for(let i = 0; i < keys.length; i += 1) {
+                      caches.delete(keys[i]);
+                    }
+                    window.location.reload();
+                  });
+
+                },
+                autoClose: false
+              });
 
               // Execute callback
               if (config && config.onUpdate) {
