@@ -61,7 +61,7 @@ const PlayerListComponent = (props: Props): ReactElement => {
               width="100%"
               opacity={playerIsGreyedOut ? '0.5' : '1'}
               onClick={() => {
-                window.navigator.vibrate(1);
+                window.navigator.vibrate(10);
                 onPlayerClick?.(player);
               }}
             >

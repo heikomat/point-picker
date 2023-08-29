@@ -34,7 +34,7 @@ const SelectedPlayersComponent = (props: Props): ReactElement => {
   }, [selectedPlayers]);
 
   const handleClick = useCallback((player: Player) => {
-    window.navigator.vibrate(1);
+    window.navigator.vibrate(10);
     removePlayer?.(player);
   }, [removePlayer])
 
