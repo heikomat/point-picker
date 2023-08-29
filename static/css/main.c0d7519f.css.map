@@ -1,0 +1,1 @@
+{"version":3,"file":"static/css/main.c0d7519f.css","mappings":"AAAA,UACE,iBACF,CACA,KACE,iBAAkB,CAClB,yBACF","sources":["app.css"],"sourcesContent":["html, body {\n  overflow-x: hidden;\n}\nbody {\n  position: relative;\n  touch-action: manipulation;\n}\n"],"names":[],"sourceRoot":""}
