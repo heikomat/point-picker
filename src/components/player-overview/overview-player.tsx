@@ -1,4 +1,4 @@
-import { Box, Flex } from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
 import { memo, ReactElement, useCallback } from "react";
 import { Player } from "../../contracts";
 import { PlayerPicture } from "../player-picture";
