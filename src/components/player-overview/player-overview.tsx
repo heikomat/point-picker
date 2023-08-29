@@ -5,6 +5,9 @@ import { OverviewPlayer, overviewPlayerWidth } from "./overview-player";
 import { PlayerSelectionContext } from "../../player-selection-context";
 import { numberFromPLayer } from "../../tools";
 import { playerBlock } from "../../assets/styles";
+import { MotionBox } from "../motion-box";
+import { AnimatePresence } from "framer-motion";
+import { scaleAnimation } from "../../contracts/scale-animation";
 
 const maxColumns = 2;
 const playersByPoints: {[key: string]: Array<Player>} = {};
@@ -110,14 +113,16 @@ const PlayerOverviewComponent = (): ReactElement => {
         }
 
         return (
-          <Flex key={points} direction="column" width={`calc(${blockWidth}% - 9px)`} {...playerBlock} padding="5px" gap="8px" >
-            <Flex justifyContent="start" fontWeight="bold" width="100%">{points + ' Pt.'}</Flex>
-            <Grid templateColumns={`repeat(${columnsToOccupy}, 1fr)`} rowGap="8px" alignItems="start" justifyItems="center">
-              {players.map((player) => {
-                return <OverviewPlayer key={player.number} player={player} onClick={handlePlayerClick} displayDisabled={!selectablePlayerNumbers.has(player.number)} onLongPress={makePlayerInactive} isSelected={selectedPlayerNumbers.has(player.number)}/>
-              })}
-            </Grid>
-          </Flex>
+          <AnimatePresence>
+            <MotionBox display="flex" layout key={points} flexDirection="column" width={`calc(${blockWidth}% - 9px)`} {...playerBlock} {...scaleAnimation} padding="5px" gap="8px" >
+              <Flex justifyContent="start" fontWeight="bold" width="100%">{points + ' Pt.'}</Flex>
+              <Grid templateColumns={`repeat(${columnsToOccupy}, 1fr)`} rowGap="8px" alignItems="start" justifyItems="center">
+                {players.map((player) => {
+                  return <OverviewPlayer key={player.number} player={player} onClick={handlePlayerClick} displayDisabled={!selectablePlayerNumbers.has(player.number)} onLongPress={makePlayerInactive} isSelected={selectedPlayerNumbers.has(player.number)}/>
+                })}
+              </Grid>
+            </MotionBox>
+          </AnimatePresence>
         )
       })}
     </Flex>

@@ -3,17 +3,13 @@ import { Player } from "../../contracts";
 import { PlayerPicture } from "../player-picture";
 import { AnimatePresence } from "framer-motion";
 import { MotionBox } from "../motion-box";
+import { scaleAnimation } from "../../contracts/scale-animation";
 
 type Props = {
   player: Player;
   onClick?: (player: Player) => void
   isNew?: boolean;
 }
-
-const variants = {
-  visible: { scale: 1 },
-  hidden: { scale: 0 },
-};
 
 const SelectedPlayerComponent = (props: Props): ReactElement => {
   const {player, onClick, isNew} = props;
@@ -32,9 +28,7 @@ const SelectedPlayerComponent = (props: Props): ReactElement => {
         fontSize="16px"
         whiteSpace="nowrap"
         onClick={handleClick}
-        initial="hidden"
-        animate="visible"
-        variants={variants}
+        {...scaleAnimation}
         key={`selected_${player.number}`}
         layout
         layoutId={`selected_${player.number}`}
