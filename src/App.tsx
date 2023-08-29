@@ -65,7 +65,15 @@ function App() {
         userSelect="none"
       >
         <GameTransitionContext.Provider value={gameTransitionContext}>
-          <Tabs isFitted height="100%" display="flex" flexDirection="column" index={tabIndex} onChange={handleTabsChange}>
+          <Tabs
+            isFitted
+            isLazy // this prevents the initial layout animation when entering the transition page the fist time
+            height="100%"
+            display="flex"
+            flexDirection="column"
+            index={tabIndex}
+            onChange={handleTabsChange}
+          >
             <TabList>
               <Tab>Spiel 1</Tab>
               <Tab>Spiel 2</Tab>

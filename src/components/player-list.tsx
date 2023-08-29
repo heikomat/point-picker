@@ -2,6 +2,7 @@ import { Box, BoxProps, Flex, Grid } from "@chakra-ui/react";
 import { memo, ReactElement, useMemo } from "react";
 import { Player } from "../contracts";
 import { PlayerPicture } from "./player-picture";
+import { MotionBox } from "./motion-box";
 
 type Props = BoxProps & {
   players?: Array<Player>
@@ -53,10 +54,11 @@ const PlayerListComponent = (props: Props): ReactElement => {
         >
           {players.map((player) => {
             const playerIsGreyedOut = greyedOutPlayers.has(player.number);
-            return <Grid
+            return <MotionBox
+              display="grid"
               key={player.number}
-              autoRows="min-content"
-              templateColumns="50px 1fr max-content"
+              gridAutoRows="min-content"
+              gridTemplateColumns="50px 1fr max-content"
               columnGap="6px"
               width="100%"
               opacity={playerIsGreyedOut ? '0.5' : '1'}
@@ -64,12 +66,14 @@ const PlayerListComponent = (props: Props): ReactElement => {
                 window.navigator.vibrate(10);
                 onPlayerClick?.(player);
               }}
+              layout="position"
+              layoutId={`${player.number}`}
             >
               <PlayerPicture player={player} isNew={showAsNew} isOld={showAsOld}/>
               {/*<Flex alignItems="center">{`#${player.number}`}</Flex>*/}
               <Box whiteSpace="nowrap" textOverflow="ellipsis" overflow="hidden" lineHeight="50px">{player.displayName}</Box>
               <Flex alignItems="center">{`${player.totalPoints}`}</Flex>
-            </Grid>
+            </MotionBox>
           })}
       </Flex>
     </Flex>
