@@ -8,7 +8,7 @@ import { playerBlock } from "../../assets/styles";
 import { MotionBox } from "../motion-box";
 import { AnimatePresence } from "framer-motion";
 import { scaleAnimation } from "../../contracts/scale-animation";
-import { scale } from "../../scale";
+import { useScale } from "../../scale";
 
 const maxColumns = 2;
 const playersByPoints: {[key: string]: Array<Player>} = {};
@@ -82,6 +82,8 @@ const PlayerOverviewComponent = (): ReactElement => {
       window.removeEventListener('resize', updateWindowWidth);
     }
   });
+
+  const scale = useScale();
 
   const currentWidth = windowWidth - 16;
   const fittingPlayers = Math.floor((currentWidth/(overviewPlayerWidth + 32)) / scale);

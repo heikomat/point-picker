@@ -5,7 +5,7 @@ import { Player } from "../../contracts";
 import { SelectedPlayer } from "./selected-player";
 import { LayoutGroup } from "framer-motion";
 import { MotionBox } from "../motion-box";
-import { pxToRem, scale } from "../../scale";
+import { pxToRem, useScale } from "../../scale";
 
 type Props = {
   selectedPlayers: Array<Player>
@@ -40,6 +40,8 @@ const SelectedPlayersComponent = (props: Props): ReactElement => {
     window.navigator.vibrate(10);
     removePlayer?.(player);
   }, [removePlayer])
+
+  const scale = useScale();
 
   const remainingPoints = 14.5 - totalPoints;
   return (
