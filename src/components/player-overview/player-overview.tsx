@@ -89,8 +89,6 @@ const PlayerOverviewComponent = (): ReactElement => {
 
   const maxColumns = fittingPlayers > 5 ? 3 : 2;
 
-  console.log('fittingPlayers', windowWidth, scale, currentWidth, fittingPlayers);
-
   let remainingColumns = fittingPlayers;
 
   return (

@@ -12,7 +12,6 @@ export const useScale = () => {
   useEffect(() => {
     const updateWindowWidth = () => {
       requestAnimationFrame(() => {
-        console.log('update scale', getScale())
         setScale(getScale());
       });
     };
