@@ -10,7 +10,6 @@ import { AnimatePresence } from "framer-motion";
 import { scaleAnimation } from "../../contracts/scale-animation";
 import { useScale } from "../../scale";
 
-const maxColumns = 2;
 const playersByPoints: {[key: string]: Array<Player>} = {};
 for (const player of players) {
   if (playersByPoints[player.totalPoints] === undefined) {
@@ -87,6 +86,8 @@ const PlayerOverviewComponent = (): ReactElement => {
 
   const currentWidth = windowWidth - 16;
   const fittingPlayers = Math.floor((currentWidth/(overviewPlayerWidth + 32)) / scale);
+
+  const maxColumns = fittingPlayers > 5 ? 3 : 2;
 
   console.log('fittingPlayers', windowWidth, scale, currentWidth, fittingPlayers);
 
