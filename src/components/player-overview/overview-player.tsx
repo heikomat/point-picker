@@ -6,6 +6,7 @@ import { useLongPress } from 'use-long-press';
 import { MotionBox } from "../motion-box";
 import { AnimatePresence } from "framer-motion";
 import { scaleAnimation } from "../../contracts/scale-animation";
+import { pxToRem } from "../../scale";
 
 type Props = {
   player: Player;
@@ -16,7 +17,7 @@ type Props = {
   isSelected?: boolean;
 }
 
-export const overviewPlayerWidth = 70;
+export const overviewPlayerWidth = 64;
 
 const OverviewPlayerComponent = (props: Props): ReactElement => {
   const {
@@ -43,12 +44,12 @@ const OverviewPlayerComponent = (props: Props): ReactElement => {
     threshold: 1000,
   });
 
-  const fontSize = playerWidth < overviewPlayerWidth ? '10px' : '12px';
+  const fontSize = playerWidth < overviewPlayerWidth ? '0.625rem' : '0.75rem';
 
   return (
     <AnimatePresence>
       <MotionBox
-        width={`${playerWidth}px`}
+        width={`${pxToRem(playerWidth)}rem`}
         userSelect="none"
         display="flex"
         flexDirection="column"
@@ -69,15 +70,15 @@ const OverviewPlayerComponent = (props: Props): ReactElement => {
         
         {isSelected && (
           <Box
-            fontSize="42px"
+            fontSize={`${pxToRem(42)}rem`}
             fontWeight="bold"
-            bottom="18px"
+            bottom="10.5rem"
             left="0"
             top="0"
-            lineHeight={`${overviewPlayerWidth}px`}
+            lineHeight={`${pxToRem(overviewPlayerWidth)}rem`}
             width="100%"
             position="absolute"
-            textShadow="0px 0px 10px rgb(255 255 255)"
+            textShadow="0px 0px 0.625rem rgb(255 255 255)"
             color="green.500"
           >
             {`✓`}

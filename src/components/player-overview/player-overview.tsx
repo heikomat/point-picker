@@ -8,6 +8,7 @@ import { playerBlock } from "../../assets/styles";
 import { MotionBox } from "../motion-box";
 import { AnimatePresence } from "framer-motion";
 import { scaleAnimation } from "../../contracts/scale-animation";
+import { scale } from "../../scale";
 
 const maxColumns = 2;
 const playersByPoints: {[key: string]: Array<Player>} = {};
@@ -82,49 +83,65 @@ const PlayerOverviewComponent = (): ReactElement => {
     }
   });
 
-  const currentWidth = Math.min(windowWidth, 500) - 16;
-  const fittingPlayers = Math.floor(currentWidth/(overviewPlayerWidth + 32));
+  const currentWidth = windowWidth - 16;
+  const fittingPlayers = Math.floor((currentWidth/(overviewPlayerWidth + 32)) / scale);
+
+  console.log('fittingPlayers', windowWidth, scale, currentWidth, fittingPlayers);
 
   let remainingColumns = fittingPlayers;
 
   return (
-    <Flex direction="row" width="100%" padding="12px" paddingTop="0" flexWrap="wrap" gap="12px"  overflow="auto">
-      {playersToRender.map(([points, players], index) => {
-        
-        let columnsToOccupy = Math.min(players.length, maxColumns, remainingColumns);
-        const currentRows = Math.ceil(players.length / columnsToOccupy);
+    <Flex 
+      overflow="auto"
+      width="100%"
+      height="100%"
+      >
+      <Flex
+        direction="row"
+        width="100%"
+        padding="0.75rem"
+        paddingTop="0"
+        flexWrap="wrap"
+        gap="0.75rem"
+        height="min-content"
+      >
+        {playersToRender.map(([points, players], index) => {
+          
+          let columnsToOccupy = Math.min(players.length, maxColumns, remainingColumns);
+          const currentRows = Math.ceil(players.length / columnsToOccupy);
 
-        const nextBlockExists = index < playersToRender.length - 1;
-        const nextBlockIsInCurrentRow = (remainingColumns - columnsToOccupy) > 0;
-        if (nextBlockExists && nextBlockIsInCurrentRow) {
-          const nextPlayerCount = playersToRender[index + 1][1].length;
-          const nextColumnsToOccupy = Math.min(nextPlayerCount, maxColumns, remainingColumns);
-          const nextRows = Math.ceil(nextPlayerCount / nextColumnsToOccupy);
-          if (nextRows > currentRows && columnsToOccupy > 1) {
-            columnsToOccupy -= 1;
+          const nextBlockExists = index < playersToRender.length - 1;
+          const nextBlockIsInCurrentRow = (remainingColumns - columnsToOccupy) > 0;
+          if (nextBlockExists && nextBlockIsInCurrentRow) {
+            const nextPlayerCount = playersToRender[index + 1][1].length;
+            const nextColumnsToOccupy = Math.min(nextPlayerCount, maxColumns, remainingColumns);
+            const nextRows = Math.ceil(nextPlayerCount / nextColumnsToOccupy);
+            if (nextRows > currentRows && columnsToOccupy > 1) {
+              columnsToOccupy -= 1;
+            }
           }
-        }
-    
-        const blockWidth = columnsToOccupy * 100 / fittingPlayers;
+      
+          const blockWidth = columnsToOccupy * 100 / fittingPlayers;
 
-        remainingColumns = remainingColumns - columnsToOccupy;
-        if (remainingColumns <= 0) {
-          remainingColumns = fittingPlayers
-        }
+          remainingColumns = remainingColumns - columnsToOccupy;
+          if (remainingColumns <= 0) {
+            remainingColumns = fittingPlayers
+          }
 
-        return (
-          <AnimatePresence>
-            <MotionBox display="flex" layout key={points} flexDirection="column" width={`calc(${blockWidth}% - 9px)`} {...playerBlock} {...scaleAnimation} padding="5px" gap="8px" >
-              <Flex justifyContent="start" fontWeight="bold" width="100%">{points + ' Pt.'}</Flex>
-              <Grid templateColumns={`repeat(${columnsToOccupy}, 1fr)`} rowGap="8px" alignItems="start" justifyItems="center">
-                {players.map((player) => {
-                  return <OverviewPlayer key={player.number} player={player} onClick={handlePlayerClick} displayDisabled={!selectablePlayerNumbers.has(player.number)} onLongPress={makePlayerInactive} isSelected={selectedPlayerNumbers.has(player.number)}/>
-                })}
-              </Grid>
-            </MotionBox>
-          </AnimatePresence>
-        )
-      })}
+          return (
+            <AnimatePresence>
+              <MotionBox display="flex" layout key={points} flexDirection="column" width={`calc(${blockWidth}% - 0.75rem)`} {...playerBlock} {...scaleAnimation} padding="5px" gap="0.5rem" >
+                <Flex justifyContent="start" fontWeight="bold" width="100%">{points + ' Pt.'}</Flex>
+                <Grid templateColumns={`repeat(${columnsToOccupy}, 1fr)`} rowGap="0.5rem" alignItems="start" justifyItems="center">
+                  {players.map((player) => {
+                    return <OverviewPlayer key={player.number} player={player} onClick={handlePlayerClick} displayDisabled={!selectablePlayerNumbers.has(player.number)} onLongPress={makePlayerInactive} isSelected={selectedPlayerNumbers.has(player.number)}/>
+                  })}
+                </Grid>
+              </MotionBox>
+            </AnimatePresence>
+          )
+        })}
+      </Flex>
     </Flex>
   );
 };

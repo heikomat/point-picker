@@ -5,6 +5,7 @@ import { Player } from "../../contracts";
 import { SelectedPlayer } from "./selected-player";
 import { LayoutGroup } from "framer-motion";
 import { MotionBox } from "../motion-box";
+import { pxToRem, scale } from "../../scale";
 
 type Props = {
   selectedPlayers: Array<Player>
@@ -46,16 +47,16 @@ const SelectedPlayersComponent = (props: Props): ReactElement => {
       {...playerBlock}
       direction="column"
       width="100%"
-      height="114px"
+      height={`${114 * scale}px`}
       backgroundColor="blue.50"
       border="1px solid #e0e0e0"
-      padding="8px"
+      padding="0.5rem"
       shrink="0"
     >
-      <Box fontWeight="bold" paddingBottom="4px">{title}</Box>
+      <Box fontWeight="bold" paddingBottom="0.25rem">{title}</Box>
       <Flex height="100%">
         <LayoutGroup>
-          <Flex gap="4px" alignItems="start">
+          <Flex gap="0.25rem" alignItems="start">
             {sortedSelectedPlayers.map((player) => {
               return <SelectedPlayer key={player.number} player={player} onClick={handleClick} isNew={newPlayerNumbers?.has(player.number)}/>
             })}
@@ -63,7 +64,7 @@ const SelectedPlayersComponent = (props: Props): ReactElement => {
           {
             (selectedPlayers.length > 0) && (
               <MotionBox layout="position">
-                <Flex paddingLeft="10px" width="60px" height="100%" alignItems="end" fontWeight="bold">
+                <Flex paddingLeft="0.625rem" width="5rem" height="100%" alignItems="end" fontWeight="bold">
                   {`= ${totalPoints}`}
                 </Flex>
               </MotionBox>
@@ -71,16 +72,16 @@ const SelectedPlayersComponent = (props: Props): ReactElement => {
           }
           <Flex
             flexDirection="column"
-            width="55px"
+            width={`${pxToRem(55)}rem`}
             flexGrow="1"
             alignItems="end"
-            paddingRight="10px"
+            paddingRight="0.625rem"
             justifyContent="end"
           >
             <Box>{'Übrig'}</Box>
             <Box
               fontWeight="bold"
-              fontSize={remainingPoints < 0 ? '20px': '16px'}
+              fontSize={remainingPoints < 0 ? '1.25rem': '1rem'}
               color={remainingPoints < 0 ? 'red': undefined}
             >
               {`${remainingPoints}`}

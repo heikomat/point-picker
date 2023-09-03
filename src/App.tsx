@@ -53,13 +53,11 @@ function App() {
   return (
     <Flex width="100%" height="100vh" justifyContent="center" alignItems="center">
       <Flex
-        borderRadius="10px"
-        boxShadow="0px 0px 8px 0px #B9B9B9"
+        borderRadius="0.625rem"
+        boxShadow="0px 0px 0.5rem 0px #B9B9B9"
         backgroundColor="gray.50"
         width="100%"
-        maxWidth="500px"
         height="100%"
-        maxHeight="1200px"
         overflow="auto"
         direction="column"
         userSelect="none"

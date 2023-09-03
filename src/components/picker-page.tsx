@@ -164,7 +164,7 @@ function PickerPageComponent(props: Props) {
     <MotionConfig transition={isFirstRender ? initialMotionConfig : motionConfig}>
       <Flex height="100%" direction="column">
         <PlayerSelectionContext.Provider value={playerSelectionContext}>
-          <Flex padding="12px" gap="12px">
+          <Flex padding="0.75rem" gap="0.75rem">
             <InactivePlayers inactivePlayers={inactivePlayers} makePlayerActive={makePlayerActive}/>
             <Button colorScheme={isLocked ? 'green' : 'orange'} onClick={handleLockClick}>{isLocked ? '🔒' : '🔓'}</Button>
             <Button colorScheme="teal" onClick={handleTransitionClick}>🔁</Button>
@@ -172,7 +172,7 @@ function PickerPageComponent(props: Props) {
           <Flex grow="1" minHeight="0" opacity={isLocked ? '0.2' : '1'} transition="opacity 0.2s">
             <PlayerOverview />
           </Flex>
-          <Flex padding="8px">
+          <Flex padding="0.5rem">
             <SelectedPlayers selectedPlayers={selectedPlayers} removePlayer={removePlayer} />
           </Flex>
         </PlayerSelectionContext.Provider>

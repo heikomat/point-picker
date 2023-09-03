@@ -122,7 +122,7 @@ function TransitionPageComponent(props: Props) {
   }, [playersInNumbers, readdPlayerToBench, removePlayerFromGame])
 
   return (
-    <Grid height="100%" templateColumns={"1fr 1fr"} templateRows="min-content 3fr 2fr min-content min-content" gap="8px" padding="8px" templateAreas={`
+    <Grid height="100%" templateColumns={"1fr 1fr"} templateRows="min-content 3fr 2fr min-content min-content" gap="0.5rem" padding="0.5rem" templateAreas={`
       "inactive     inactive"
       "current_game bench   "
       "out          in      "

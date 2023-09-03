@@ -2,6 +2,7 @@ import { Box } from "@chakra-ui/react";
 import { memo, ReactElement } from "react";
 import { Player } from "../contracts";
 import placeholder from '../assets/placeholder.webp';
+import { pxToRem } from "../scale";
 
 type Props = {
   player: Player
@@ -17,15 +18,15 @@ const imageStyle = {
 const PlayerPictureComponent = (props: Props): ReactElement => {
   const {player, showNumber = true, isNew = false, isOld = false} = props;
 
-  let borderStyle = isNew ? '3px solid #2ec61f' : '1px solid #7e8cef';
-  borderStyle = isOld ? '3px solid #c64b1f' : borderStyle;
+  let borderStyle = isNew ? `${pxToRem(3)}rem solid #2ec61f` : `1px solid #7e8cef`;
+  borderStyle = isOld ? `${pxToRem(3)}rem solid #c64b1f` : borderStyle;
 
   return (
     <Box
       backgroundImage={player.image ?? placeholder}
       width="100%"
       style={imageStyle}
-      borderRadius="5px"
+      borderRadius={`${pxToRem(5)}rem`}
       border={borderStyle}
       backgroundSize="cover"
       position="relative"
@@ -34,12 +35,12 @@ const PlayerPictureComponent = (props: Props): ReactElement => {
       {showNumber && (
         <Box
         backgroundColor="blue"
-        paddingX="3px"
-        fontSize="12px"
+        paddingX={`${pxToRem(3)}rem`}
+        fontSize="0.75rem"
         top="0px"
         right="0px"
         position="absolute"
-        borderBottomLeftRadius="3px"
+        borderBottomLeftRadius={`${pxToRem(3)}rem`}
         color="white"
         >
         {`#${player.number}`}

@@ -22,10 +22,10 @@ const SelectedPlayerComponent = (props: Props): ReactElement => {
     <AnimatePresence>
       <MotionBox
         display="flex"
-        width="46px"
+        width="2.875rem"
         flexDirection="column"
         textAlign="center"
-        fontSize="16px"
+        fontSize="1rem"
         whiteSpace="nowrap"
         onClick={handleClick}
         {...scaleAnimation}

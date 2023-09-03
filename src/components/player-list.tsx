@@ -3,6 +3,7 @@ import { memo, ReactElement, useMemo } from "react";
 import { Player } from "../contracts";
 import { PlayerPicture } from "./player-picture";
 import { MotionBox } from "./motion-box";
+import { pxToRem } from "../scale";
 
 type Props = BoxProps & {
   players?: Array<Player>
@@ -38,19 +39,19 @@ const PlayerListComponent = (props: Props): ReactElement => {
 
   return <Flex {...boxProps} minHeight="0" minWidth="0" direction="column">
       {/* HEADER */}
-      <Flex px="8px" py="4px">
+      <Flex px="0.5rem" py="0.25rem">
         <Flex fontWeight="bold" grow="1">{`${title} (${players.length})`}</Flex>
         <Box>{'PT'}</Box>
       </Flex>
 
       <Flex grow="1" shrink="1" overflow="hidden">
         <Flex
-          gap="8px"
+          gap="0.5rem"
           direction="column"
           overflow="auto"
-          px="8px"
+          px="0.5rem"
           width="100%"
-          paddingBottom="8px"
+          paddingBottom="0.5rem"
         >
           {players.map((player) => {
             const playerIsGreyedOut = greyedOutPlayers.has(player.number);
@@ -58,8 +59,8 @@ const PlayerListComponent = (props: Props): ReactElement => {
               display="grid"
               key={player.number}
               gridAutoRows="min-content"
-              gridTemplateColumns="50px 1fr max-content"
-              columnGap="6px"
+              gridTemplateColumns={`${pxToRem(50)}rem 1fr max-content`}
+              columnGap="0.375rem"
               width="100%"
               opacity={playerIsGreyedOut ? '0.5' : '1'}
               onClick={() => {
@@ -71,14 +72,14 @@ const PlayerListComponent = (props: Props): ReactElement => {
             >
               <PlayerPicture player={player} isNew={showAsNew} isOld={showAsOld}/>
               {/*<Flex alignItems="center">{`#${player.number}`}</Flex>*/}
-              <Box whiteSpace="nowrap" textOverflow="ellipsis" overflow="hidden" lineHeight="50px">{player.displayName}</Box>
+              <Box whiteSpace="nowrap" textOverflow="ellipsis" overflow="hidden" lineHeight={`${pxToRem(50)}rem`}>{player.displayName}</Box>
               <Flex alignItems="center">{`${player.totalPoints}`}</Flex>
             </MotionBox>
           })}
       </Flex>
     </Flex>
     {showPointSum && (
-      <Flex borderTop="1px solid #cecece" justifyContent="end" px="8px">
+      <Flex borderTop="1px solid #cecece" justifyContent="end" px="0.5rem">
         {`= ${pointSum}`}
       </Flex>
     )}
