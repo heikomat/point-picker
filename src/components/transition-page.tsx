@@ -109,6 +109,8 @@ function TransitionPageComponent(props: Props) {
       .map(numberFromPLayer));
   }, [newGame]);
 
+  console.log('unselectable players', Array.from(unselectablePlayerNumbers))
+
   const transitionIsValid = useMemo(() => {
     return playersAreValidTeam(newGame);
   }, [newGame]);
