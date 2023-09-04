@@ -1,9 +1,7 @@
 import { Box, BoxProps, Flex } from "@chakra-ui/react";
 import { memo, ReactElement, useMemo } from "react";
 import { Player } from "../contracts";
-import { PlayerPicture } from "./player-picture";
 import { MotionBox } from "./motion-box";
-import { pxToRem } from "../scale";
 import { PlayerListPlayer } from "./player-list-player";
 
 type Props = BoxProps & {
@@ -60,13 +58,19 @@ const PlayerListComponent = (props: Props): ReactElement => {
         >
           {players.map((player) => {
             return (
-              <PlayerListPlayer
-                player={player}
-                isGreyedOut={greyedOutPlayers.has(player.number)}
-                showAsOld={showAsOld}
-                showAsNew={showAsNew}
-                onPlayerClick={onPlayerClick}
-              />
+              <MotionBox
+                key={player.number}
+                layout="position"
+                layoutId={`${player.number}`}
+              >
+                <PlayerListPlayer
+                  player={player}
+                  isGreyedOut={greyedOutPlayers.has(player.number)}
+                  showAsOld={showAsOld}
+                  showAsNew={showAsNew}
+                  onPlayerClick={onPlayerClick}
+                />
+              </MotionBox>
             );
           })}
       </Flex>
