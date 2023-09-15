@@ -103,7 +103,7 @@ export const players: Array<Player> = [{
   number: 4,
   image: jana,
   ...getName('Jana', 'Bartlick'),
-  ...getPointInfo(3, [Bonus.Woman, Bonus.Beginner])
+  ...getPointInfo(2.5, [Bonus.Woman, Bonus.Beginner])
 }, {
   isDisabled: true,
   number: 19,
@@ -200,6 +200,11 @@ export const players: Array<Player> = [{
   image: patrick_k,
   ...getName('Patrick', 'Kloppisch'),
   ...getPointInfo(3.0, [])
+}, {
+  isDisabled: false,
+  number: 16,
+  ...getName('Luis', 'Trenk'),
+  ...getPointInfo(4.5, [])
 },].sort((player1, player2) => {
   if (player1.displayName > player2.displayName) {
     return 1;
