@@ -172,7 +172,7 @@ function TransitionPageComponent(props: Props) {
       <Flex gridArea="new_game" height="100%" minHeight="0">
         <SelectedPlayers selectedPlayers={newGame} title="Neues Feld" removePlayer={handleRemovePlayerFromNewGame} newPlayerNumbers={playersInNumbers}/>
       </Flex>
-      <Button gridArea="apply" colorScheme="teal" width="100%" disabled={!transitionIsValid} onClick={handleApplyGame}>
+      <Button gridArea="apply" colorScheme="teal" width="100%" isDisabled={!transitionIsValid} onClick={handleApplyGame}>
         {`${game?.title} Übernehmen`}
       </Button>
     </Grid>
