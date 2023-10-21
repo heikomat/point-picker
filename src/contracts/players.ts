@@ -19,6 +19,7 @@ import jarne from '../assets/jarne.webp';
 import sylvester from '../assets/sylvester.webp';
 import sascha from '../assets/sascha.webp';
 import patrick_k from '../assets/patrick_k.webp';
+import luis from '../assets/luis.webp';
 import { numberFromPLayer } from "../tools";
 
 export type Player = {
@@ -201,10 +202,11 @@ export const players: Array<Player> = [{
   ...getName('Patrick', 'Kloppisch'),
   ...getPointInfo(3.0, [])
 }, {
-  isDisabled: false,
+  isDisabled: true,
   number: 16,
+  image: luis,
   ...getName('Luis', 'Trenk'),
-  ...getPointInfo(4.5, [])
+  ...getPointInfo(4.0, [])
 },].sort((player1, player2) => {
   if (player1.displayName > player2.displayName) {
     return 1;
