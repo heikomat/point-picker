@@ -184,11 +184,11 @@ export const players: Array<Player> = [{
   ...getName('Sylvester', 'von Heereman'),
   ...getPointInfo(4.5, [])
 }, {
-  isDisabled: true,
+  isDisabled: false,
   number: 5,
   image: jarne,
   ...getName('Jarne', 'Schneider'),
-  ...getPointInfo(4.0, [Bonus.Youth])
+  ...getPointInfo(4.5, [])
 }, {
   isDisabled: false,
   number: 18,
