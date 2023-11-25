@@ -55,7 +55,32 @@ const SelectedPlayersComponent = (props: Props): ReactElement => {
       padding="0.5rem"
       shrink="0"
     >
-      <Box fontWeight="bold" paddingBottom="0.25rem">{title}</Box>
+      <Flex direction="row">
+
+        <Box fontWeight="bold" paddingBottom="0.25rem">
+          {title}
+        </Box>
+        <Box flexGrow="1" />
+        <Box>{'Übrig: '}</Box>
+        <Box
+          fontWeight="bold"
+          fontSize={remainingPoints < 0 ? '1.25rem': '1rem'}
+          color={remainingPoints < 0 ? 'red': undefined}
+          paddingLeft="0.25rem"
+        >
+          {`${remainingPoints}`}
+        </Box>
+      </Flex>
+
+        <Flex
+            flexDirection="row"
+            width={`${pxToRem(55)}rem`}
+            flexGrow="1"
+            alignItems="end"
+            paddingRight="0.625rem"
+            justifyContent="end"
+          >
+          </Flex>
       <Flex height="100%">
         <LayoutGroup>
           <Flex gap="0.25rem" alignItems="start">
@@ -66,29 +91,12 @@ const SelectedPlayersComponent = (props: Props): ReactElement => {
           {
             (selectedPlayers.length > 0) && (
               <MotionBox layout="position">
-                <Flex paddingLeft="0.625rem" width="5rem" height="100%" alignItems="end" fontWeight="bold">
+                <Flex width="5rem" height="100%" alignItems="end" fontWeight="bold">
                   {`= ${totalPoints}`}
                 </Flex>
               </MotionBox>
             )
           }
-          <Flex
-            flexDirection="column"
-            width={`${pxToRem(55)}rem`}
-            flexGrow="1"
-            alignItems="end"
-            paddingRight="0.625rem"
-            justifyContent="end"
-          >
-            <Box>{'Übrig'}</Box>
-            <Box
-              fontWeight="bold"
-              fontSize={remainingPoints < 0 ? '1.25rem': '1rem'}
-              color={remainingPoints < 0 ? 'red': undefined}
-            >
-              {`${remainingPoints}`}
-            </Box>
-          </Flex>
         </LayoutGroup>
       </Flex>
     </Flex>
