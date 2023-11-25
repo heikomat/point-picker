@@ -44,7 +44,7 @@ const PlayerListComponent = (props: Props): ReactElement => {
       {/* HEADER */}
       <Flex px="0.5rem" py="0.25rem">
         <Flex fontWeight="bold" grow="1">{`${title} (${players.length})`}</Flex>
-        <Box>{'PT'}</Box>
+        {showPointSum && (<Box>{`= ${pointSum}`}</Box>)}
       </Flex>
 
       <Flex grow="1" shrink="1" overflow="hidden">
@@ -75,11 +75,6 @@ const PlayerListComponent = (props: Props): ReactElement => {
           })}
       </Flex>
     </Flex>
-    {showPointSum && (
-      <Flex borderTop="1px solid #cecece" justifyContent="end" px="0.5rem">
-        {`= ${pointSum}`}
-      </Flex>
-    )}
   </Flex>
 };
 

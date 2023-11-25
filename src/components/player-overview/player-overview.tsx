@@ -1,5 +1,5 @@
 import { Player, playerCanBeSelected, players } from "../../contracts";
-import { memo, ReactElement, useCallback, useContext, useEffect, useMemo, useState } from "react";
+import { memo, ReactElement, useCallback, useContext, useMemo } from "react";
 import { Flex, Grid } from "@chakra-ui/react";
 import { OverviewPlayer, overviewPlayerWidth } from "./overview-player";
 import { PlayerSelectionContext } from "../../player-selection-context";
