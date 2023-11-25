@@ -4,6 +4,8 @@ import './app.css';
 import { Game, PickerPage } from "./components/picker-page";
 import { TransitionPage } from "./components/transition-page";
 import { GameTransitionContext } from "./game-transition-context";
+import { useScale } from "./scale";
+import { useWindowWidth } from "./use-window-width";
 
 function App() {
 
@@ -73,10 +75,10 @@ function App() {
             onChange={handleTabsChange}
           >
             <TabList>
-              <Tab>Spiel 1</Tab>
-              <Tab>Spiel 2</Tab>
-              <Tab>Test</Tab>
-              <Tab whiteSpace="nowrap" isDisabled={currentTransitionGame === undefined}>{currentTransitionGame === undefined ? 'Transition' : `🔁 ${currentTransitionGame?.title}`}</Tab>
+              <Tab className="main-tab">Spiel 1</Tab>
+              <Tab className="main-tab">Spiel 2</Tab>
+              <Tab className="main-tab">Test</Tab>
+              <Tab className="main-tab" whiteSpace="nowrap" isDisabled={currentTransitionGame === undefined}>{currentTransitionGame === undefined ? 'Transition' : `🔁 ${currentTransitionGame?.title}`}</Tab>
             </TabList>
 
             <TabPanels overflow="hidden" height="100%">

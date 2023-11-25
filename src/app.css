@@ -1,6 +1,15 @@
 html {
   font-size: 100%;
 }
+.main-tab {
+  padding: 0.25rem !important;
+  white-space: nowrap;
+}
+@media (min-width:360px)  {
+  .main-tab {
+    padding: 0.5rem !important;
+  }
+}
 @media (min-width:481px)  {
   /* portrait e-readers (Nook/Kindle), smaller tablets @ 600 or @ 640 wide. */
   html {

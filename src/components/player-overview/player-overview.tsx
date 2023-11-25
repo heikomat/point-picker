@@ -9,6 +9,7 @@ import { MotionBox } from "../motion-box";
 import { AnimatePresence } from "framer-motion";
 import { scaleAnimation } from "../../contracts/scale-animation";
 import { useScale } from "../../scale";
+import { useWindowWidth } from "../../use-window-width";
 
 const playersByPoints: {[key: string]: Array<Player>} = {};
 for (const player of players) {
@@ -70,17 +71,7 @@ const PlayerOverviewComponent = (): ReactElement => {
   }, [addPlayer, removePlayer, selectablePlayerNumbers, selectedPlayerNumbers]);
 
 
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-  // TODO: make number-groups only as large as necessary
-  useEffect(() => {
-    const updateWindowWidth = () => {
-      setWindowWidth(window.innerWidth);
-    };
-    window.addEventListener('resize', updateWindowWidth);
-    return (): void => {
-      window.removeEventListener('resize', updateWindowWidth);
-    }
-  });
+  const windowWidth = useWindowWidth();
 
   const scale = useScale();
 
