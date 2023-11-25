@@ -4,8 +4,6 @@ import './app.css';
 import { Game, PickerPage } from "./components/picker-page";
 import { TransitionPage } from "./components/transition-page";
 import { GameTransitionContext } from "./game-transition-context";
-import { useScale } from "./scale";
-import { useWindowWidth } from "./use-window-width";
 
 function App() {
 

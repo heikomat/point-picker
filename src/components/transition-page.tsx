@@ -4,7 +4,6 @@ import { playerBlock } from "../assets/styles";
 import { Player, playerCanBeSelected, players, playersAreValidTeam } from "../contracts";
 import { GameTransitionContext } from "../game-transition-context";
 import { addPlayer, numberFromPLayer, playerFromNumber, sortByPoints, subtractPlayer } from "../tools";
-import { InactivePlayers } from "./inactive-players/inactive-players";
 import { Game } from "./picker-page";
 import { PlayerList } from "./player-list";
 import { SelectedPlayers } from "./selected-players/selected-players";
@@ -29,10 +28,6 @@ function TransitionPageComponent(props: Props) {
   useEffect(() => {
     resetTransition();
   }, [game, resetTransition]);
-
-  const inactivePlayers = useMemo(() => {
-    return game?.inactivePlayerNumbers.map(playerFromNumber);
-  }, [game?.inactivePlayerNumbers]);
 
 
   const removePlayerFromGame = useCallback((player: Player) => {
