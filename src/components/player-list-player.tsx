@@ -1,5 +1,5 @@
 import { Box, BoxProps, Flex, Grid } from "@chakra-ui/react";
-import { memo, ReactElement, useCallback } from "react";
+import { memo, ReactElement } from "react";
 import { Player } from "../contracts";
 import { PlayerPicture } from "./player-picture";
 import { pxToRem } from "../scale";
@@ -21,10 +21,10 @@ const PlayerListPlayerComponent = (props: Props): ReactElement => {
     onPlayerClick,
   } = props;
 
-  const handleClick = useCallback(() => {
+  const handleClick = () => {
     window.navigator.vibrate(10);
     onPlayerClick?.(player);
-  }, [onPlayerClick, player]);
+  };
 
   return (
     <Grid

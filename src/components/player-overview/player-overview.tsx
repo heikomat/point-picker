@@ -1,5 +1,5 @@
 import { Player, playerCanBeSelected, players } from "../../contracts";
-import { memo, ReactElement, useCallback, useContext, useMemo } from "react";
+import { memo, ReactElement, useContext } from "react";
 import { Flex, Grid } from "@chakra-ui/react";
 import { OverviewPlayer, overviewPlayerWidth } from "./overview-player";
 import { PlayerSelectionContext } from "../../player-selection-context";
@@ -24,43 +24,35 @@ const PlayerOverviewComponent = (): ReactElement => {
 
   const {addPlayer, selectedPlayers, removePlayer, makePlayerInactive, inactivePlayers} = useContext(PlayerSelectionContext);
 
-  const selectablePlayerNumbers = useMemo(() => {
-    return new Set(players
-      .filter((player) => {
-        return playerCanBeSelected(selectedPlayers, player)
+  const selectablePlayerNumbers = new Set(players
+    .filter((player) => {
+      return playerCanBeSelected(selectedPlayers, player)
+    })
+    .map(numberFromPLayer)
+  );
+
+  const inactivePlayerNumbers = new Set(inactivePlayers.map((inactivePlayer) => {
+    return inactivePlayer.number;
+  }));
+
+  const playersToRender = Object
+    .entries(playersByPoints)
+    .map(([points, players]): [string, Array<Player>] => {
+      const nonInactivePlayers = players.filter((player) => {
+        return !inactivePlayerNumbers.has(player.number);
       })
-      .map(numberFromPLayer)
-    );
-  }, [selectedPlayers]);
+      return [points, nonInactivePlayers];
+    })
+    .filter(([points, players]) => {
+      return players.length > 0;
+    })
+    .sort(([points1], [points2]) => {
+      return parseFloat(points2) - parseFloat(points1);
+    });
 
-  const inactivePlayerNumbers = useMemo(() => {
-    return new Set(inactivePlayers.map((inactivePlayer) => {
-      return inactivePlayer.number;
-    }))
-  }, [inactivePlayers]);
+  const selectedPlayerNumbers = new Set(selectedPlayers.map(numberFromPLayer));
 
-  const playersToRender = useMemo(() => {
-    return Object
-      .entries(playersByPoints)
-      .map(([points, players]): [string, Array<Player>] => {
-        const nonInactivePlayers = players.filter((player) => {
-          return !inactivePlayerNumbers.has(player.number);
-        })
-        return [points, nonInactivePlayers];
-      })
-      .filter(([points, players]) => {
-        return players.length > 0;
-      })
-      .sort(([points1], [points2]) => {
-        return parseFloat(points2) - parseFloat(points1);
-      });
-  }, [inactivePlayerNumbers]);
-
-  const selectedPlayerNumbers = useMemo(() => {
-    return new Set(selectedPlayers.map(numberFromPLayer))
-  }, [selectedPlayers]);
-
-  const handlePlayerClick = useCallback((player: Player) => {
+  const handlePlayerClick = (player: Player) => {
     if (selectedPlayerNumbers.has(player.number)) {
       window.navigator.vibrate(10);
       removePlayer?.(player)
@@ -68,7 +60,7 @@ const PlayerOverviewComponent = (): ReactElement => {
       window.navigator.vibrate(10);
       addPlayer?.(player);
     }
-  }, [addPlayer, removePlayer, selectablePlayerNumbers, selectedPlayerNumbers]);
+  };
 
 
   const windowWidth = useWindowWidth();

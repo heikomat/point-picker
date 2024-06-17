@@ -1,5 +1,5 @@
 import { Box } from "@chakra-ui/react";
-import { memo, ReactElement, useCallback } from "react";
+import { memo, ReactElement } from "react";
 import { Player } from "../../contracts";
 import { PlayerPicture } from "../player-picture";
 import { useLongPress } from 'use-long-press';
@@ -29,9 +29,9 @@ const OverviewPlayerComponent = (props: Props): ReactElement => {
     isSelected = false,
   } = props;
 
-  const handleClick = useCallback(() => {
+  const handleClick = () => {
     onClick?.(player);
-  }, [onClick, player]);
+  };
 
   const bind = useLongPress((event) => {
     event.stopPropagation();

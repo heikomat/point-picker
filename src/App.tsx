@@ -1,5 +1,5 @@
 import { Flex, Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/react";
-import { useCallback, useMemo, useState } from "react";
+import { useState } from "react";
 import './app.css';
 import { Game, PickerPage } from "./components/picker-page";
 import { TransitionPage } from "./components/transition-page";
@@ -15,12 +15,12 @@ function App() {
     setTabIndex(index)
   }
 
-  const startTransition = useCallback((currentGame: Game) => {
+  const startTransition = (currentGame: Game) => {
     setCurrentTransitionGame(currentGame);
     setTabIndex(3);
-  }, []);
+  };
 
-  const handleApplyTransition = useCallback((gameId?: string, selectedPlayerNumbers?: Array<number>) => {
+  const handleApplyTransition = (gameId?: string, selectedPlayerNumbers?: Array<number>) => {
     if (gameId === undefined || selectedPlayerNumbers === undefined) {
       return;
     }
@@ -40,15 +40,13 @@ function App() {
     if (gameId === 'playground') {
       setTabIndex(2);
     }
-  }, []);
+  };
 
-  const gameTransitionContext = useMemo(() => {
-    return {
-      applyTransition: handleApplyTransition,
-      lastAppliedTransition: lastAppliedTransition,
-      startTransition: startTransition,
-    }
-  }, [handleApplyTransition, lastAppliedTransition, startTransition]);
+  const gameTransitionContext = {
+    applyTransition: handleApplyTransition,
+    lastAppliedTransition: lastAppliedTransition,
+    startTransition: startTransition,
+  };
 
   return (
     <Flex width="100%" height="100vh" justifyContent="center" alignItems="center">

@@ -1,5 +1,5 @@
 import { Button, Flex } from "@chakra-ui/react";
-import { memo, useCallback, useContext, useEffect, useMemo, useState } from "react";
+import { memo, useContext, useEffect, useState } from "react";
 import { PlayerOverview } from "./player-overview/player-overview";
 import { SelectedPlayers } from "./selected-players/selected-players";
 import { Player, playerCanBeSelected, players } from "../contracts";
@@ -68,7 +68,7 @@ function PickerPageComponent(props: Props) {
     }
   }, [lastAppliedTransition, page])
 
-  const addPlayer = useCallback((player: Player) => {
+  const addPlayer = (player: Player) => {
     if (isLocked) {
       return;
     }
@@ -80,9 +80,9 @@ function PickerPageComponent(props: Props) {
 
       return toolsAddPlayer(selectedPlayers, player);
     })
-  }, [isLocked]);
+  };
   
-  const removePlayer = useCallback((player: Player) => {
+  const removePlayer = (player: Player) => {
     if (isLocked) {
       return;
     }
@@ -90,9 +90,9 @@ function PickerPageComponent(props: Props) {
     setSelectedPlayers((selectedPlayers) => {
       return subtractPlayer(selectedPlayers, player);
     })
-  }, [isLocked]);
+  };
 
-  const makePlayerInactive = useCallback((player: Player) => {
+  const makePlayerInactive = (player: Player) => {
     if (isLocked) {
       return;
     }
@@ -108,9 +108,9 @@ function PickerPageComponent(props: Props) {
 
       return [...inactivePlayers, player];
     })
-  }, [isLocked, removePlayer]);
+  };
   
-  const makePlayerActive = useCallback((player: Player) => {
+  const makePlayerActive = (player: Player) => {
     if (isLocked) {
       return;
     }
@@ -120,40 +120,35 @@ function PickerPageComponent(props: Props) {
         return inactivePlayer.number !== player.number
       })
     })
-  }, [isLocked]);
+  };
 
-  const currentGame = useMemo(() => {
-    return {
-      id: page,
-      title: title,
-      selectedPlayerNumbers: selectedPlayers.map(numberFromPLayer),
-      inactivePlayerNumbers: inactivePlayers.map(numberFromPLayer),
-      isLocked: isLocked,
-    }
-  }, [page, title, selectedPlayers, inactivePlayers, isLocked]);
+  const currentGame = {
+    id: page,
+    title: title,
+    selectedPlayerNumbers: selectedPlayers.map(numberFromPLayer),
+    inactivePlayerNumbers: inactivePlayers.map(numberFromPLayer),
+    isLocked: isLocked,
+  };
 
-  const playerSelectionContext = useMemo(() => {
-    localStorage.setItem(`pickedPlayers-${page}`, JSON.stringify(currentGame));
+  localStorage.setItem(`pickedPlayers-${page}`, JSON.stringify(currentGame));
+  const playerSelectionContext = {
+    selectedPlayers: selectedPlayers,
+    inactivePlayers: inactivePlayers,
+    makePlayerActive: makePlayerActive,
+    makePlayerInactive: makePlayerInactive,
+    addPlayer: addPlayer,
+    removePlayer: removePlayer,
+  };
 
-    return {
-      selectedPlayers: selectedPlayers,
-      inactivePlayers: inactivePlayers,
-      makePlayerActive: makePlayerActive,
-      makePlayerInactive: makePlayerInactive,
-      addPlayer: addPlayer,
-      removePlayer: removePlayer,
-    }
-  }, [page, currentGame, selectedPlayers, inactivePlayers, makePlayerActive, makePlayerInactive, addPlayer, removePlayer]);
-
-  const handleTransitionClick = useCallback(() => {
+  const handleTransitionClick = () => {
     startTransition?.(currentGame)
-  }, [currentGame, startTransition]);
+  };
 
-  const handleLockClick = useCallback(() => {
+  const handleLockClick = () => {
     setIsLocked((isLocked) => {
       return !isLocked;
     })
-  }, []);
+  };
 
   const [isFirstRender, setIsFirstRender] = useState(true);
   useEffect(() => {

@@ -1,5 +1,5 @@
 import { Box, Flex } from "@chakra-ui/react";
-import { memo, ReactElement, useCallback, useMemo } from "react";
+import { memo, ReactElement } from "react";
 import { playerBlock } from "../../assets/styles";
 import { Player } from "../../contracts";
 import { SelectedPlayer } from "./selected-player";
@@ -22,24 +22,19 @@ const SelectedPlayersComponent = (props: Props): ReactElement => {
     newPlayerNumbers,
   } = props;
 
-  const sortedSelectedPlayers = useMemo(() => {
-    return selectedPlayers.sort((player1, player2) => {
-      return player2.totalPoints - player1.totalPoints;
-    });
-  }, [selectedPlayers])
+  const sortedSelectedPlayers = selectedPlayers.sort((player1, player2) => {
+    return player2.totalPoints - player1.totalPoints;
+  })
 
-  const totalPoints = useMemo(() => {
-    let result = 0;
-    for (const player of selectedPlayers) {
-      result += player.totalPoints;
-    }
-    return result;
-  }, [selectedPlayers]);
+  let totalPoints = 0;
+  for (const player of selectedPlayers) {
+    totalPoints += player.totalPoints;
+  }
 
-  const handleClick = useCallback((player: Player) => {
+  const handleClick = (player: Player) => {
     window.navigator.vibrate(10);
     removePlayer?.(player);
-  }, [removePlayer])
+  };
 
   const scale = useScale();
 

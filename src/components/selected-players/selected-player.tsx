@@ -1,4 +1,4 @@
-import { memo, ReactElement, useCallback } from "react";
+import { memo, ReactElement } from "react";
 import { Player } from "../../contracts";
 import { PlayerPicture } from "../player-picture";
 import { AnimatePresence } from "framer-motion";
@@ -14,9 +14,9 @@ type Props = {
 const SelectedPlayerComponent = (props: Props): ReactElement => {
   const {player, onClick, isNew} = props;
 
-  const handleClick = useCallback(() => {
+  const handleClick = () => {
     onClick?.(player);
-  }, [onClick, player]);
+  };
 
   return (
     <AnimatePresence>

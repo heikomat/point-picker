@@ -1,5 +1,5 @@
 import { Button, Flex, Grid } from "@chakra-ui/react";
-import { memo, useCallback, useContext, useEffect, useMemo, useState } from "react";
+import { memo, useContext, useEffect, useState } from "react";
 import { playerBlock } from "../assets/styles";
 import { Player, playerCanBeSelected, players, playersAreValidTeam } from "../contracts";
 import { GameTransitionContext } from "../game-transition-context";
@@ -20,103 +20,88 @@ function TransitionPageComponent(props: Props) {
   const [playersIn, setPlayersIn] = useState<Array<Player>>([]);
   const [playersOut, setPlayersOut] = useState<Array<Player>>([]);
 
-  const resetTransition = useCallback(() => {
+  const resetTransition = () => {
     setPlayersIn([]);
     setPlayersOut([]);
-  }, []);
+  };
 
   useEffect(() => {
     resetTransition();
   }, [game, resetTransition]);
 
 
-  const removePlayerFromGame = useCallback((player: Player) => {
+  const removePlayerFromGame = (player: Player) => {
     setPlayersOut((playersOut) => {
       return sortByPoints(addPlayer(playersOut, player));
     });
-  }, []);
+  };
 
-  const readdPlayerToGame = useCallback((player: Player) => {
+  const readdPlayerToGame = (player: Player) => {
     setPlayersOut((playersOut) => {
       return sortByPoints(subtractPlayer(playersOut, player));
     });
-  }, []);
+  };
 
-  const addPlayerFromBench = useCallback((player: Player) => {
+  const addPlayerFromBench = (player: Player) => {
     setPlayersIn((playersIn) => {
       return sortByPoints(addPlayer(playersIn, player));
     });
-  }, []);
+  };
 
-  const readdPlayerToBench = useCallback((player: Player) => {
+  const readdPlayerToBench = (player: Player) => {
     setPlayersIn((playersIn) => {
       return sortByPoints(subtractPlayer(playersIn, player));
     });
-  }, []);
+  };
 
-  const playersInNumbers = useMemo(() => {
-    return new Set(playersIn.map(numberFromPLayer))
-  }, [playersIn]);
+  const playersInNumbers = new Set(playersIn.map(numberFromPLayer));
+  const playersOutNumbers = new Set(playersOut.map(numberFromPLayer));
 
-  const playersOutNumbers = useMemo(() => {
-    return new Set(playersOut.map(numberFromPLayer))
-  }, [playersOut]);
+  const currentGame = sortByPoints(game?.selectedPlayerNumbers
+    .filter((playerNumber) => {
+      return !playersOutNumbers.has(playerNumber);
+    })
+    .map(playerFromNumber) ?? []);
 
-  const currentGame = useMemo(() => {
-    return sortByPoints(game?.selectedPlayerNumbers
-      .filter((playerNumber) => {
-        return !playersOutNumbers.has(playerNumber);
-      })
-      .map(playerFromNumber) ?? [])
-  }, [game?.selectedPlayerNumbers, playersOutNumbers]);
+  const newGame = [
+    ...(currentGame as Array<Player>)?.filter((player) => {
+      return !playersOutNumbers.has(player.number)
+    }),
+    ...playersIn,
+  ];
 
-  const newGame = useMemo(() => {
-    return [
-      ...(currentGame as Array<Player>)?.filter((player) => {
-        return !playersOutNumbers.has(player.number)
-      }),
-      ...playersIn,
-    ];
-  }, [currentGame, playersIn, playersOutNumbers]);
-
-  const handleApplyGame = useCallback(() => {
+  const handleApplyGame = () => {
     applyTransition?.(game?.id, newGame.map(numberFromPLayer))
     resetTransition();
-  }, [applyTransition, game?.id, newGame, resetTransition]);
+  };
 
-  const benchPlayers = useMemo(() => {
-    const inactivePlayerNumbers = new Set(game?.inactivePlayerNumbers);
-    const oldSelectedPlayersNumbers = new Set(game?.selectedPlayerNumbers);
-    return sortByPoints(players
-      .filter((player) => {
-        const playerIsInactive = inactivePlayerNumbers.has(player.number)
-        const playerIsAlreadyInGame = oldSelectedPlayersNumbers.has(player.number)
-        const PlayerIsAlreadySelected = playersInNumbers.has(player.number)
-        return !playerIsInactive && !playerIsAlreadyInGame && !PlayerIsAlreadySelected;
-      }));
-  }, [game?.inactivePlayerNumbers, game?.selectedPlayerNumbers, playersInNumbers]);
+  const inactivePlayerNumbers = new Set(game?.inactivePlayerNumbers);
+  const oldSelectedPlayersNumbers = new Set(game?.selectedPlayerNumbers);
+  const benchPlayers = sortByPoints(players
+    .filter((player) => {
+      const playerIsInactive = inactivePlayerNumbers.has(player.number)
+      const playerIsAlreadyInGame = oldSelectedPlayersNumbers.has(player.number)
+      const PlayerIsAlreadySelected = playersInNumbers.has(player.number)
+      return !playerIsInactive && !playerIsAlreadyInGame && !PlayerIsAlreadySelected;
+    }));
 
-  const unselectablePlayerNumbers = useMemo(() => {
-    return new Set(players
-      .filter((player) => {
-        return !playerCanBeSelected(newGame, player);
-      })
-      .map(numberFromPLayer));
-  }, [newGame]);
+  const unselectablePlayerNumbers = new Set(players
+    .filter((player) => {
+      return !playerCanBeSelected(newGame, player);
+    })
+    .map(numberFromPLayer))
 
   console.log('unselectable players', Array.from(unselectablePlayerNumbers))
 
-  const transitionIsValid = useMemo(() => {
-    return playersAreValidTeam(newGame);
-  }, [newGame]);
+  const transitionIsValid = playersAreValidTeam(newGame)
 
-  const handleRemovePlayerFromNewGame = useCallback((player: Player) => {
+  const handleRemovePlayerFromNewGame = (player: Player) => {
     if (playersInNumbers.has(player.number)) {
       readdPlayerToBench(player);
     } else {
       removePlayerFromGame(player);
     }
-  }, [playersInNumbers, readdPlayerToBench, removePlayerFromGame])
+  };
 
   return (
     <Grid height="100%" templateColumns={"1fr 1fr"} templateRows="3fr 2fr min-content min-content" gap="0.5rem" padding="0.5rem" templateAreas={`

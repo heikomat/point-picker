@@ -1,5 +1,5 @@
 import { Box, BoxProps, Flex } from "@chakra-ui/react";
-import { memo, ReactElement, useMemo } from "react";
+import { memo, ReactElement } from "react";
 import { Player } from "../contracts";
 import { MotionBox } from "./motion-box";
 import { PlayerListPlayer } from "./player-list-player";
@@ -28,13 +28,10 @@ const PlayerListComponent = (props: Props): ReactElement => {
     ...boxProps
   } = props;
 
-  const pointSum = useMemo(() => {
-    let result = 0;
-    for (const player of players) {
-      result += player.totalPoints;
-    }
-    return result;
-  }, [players]);
+  let pointSum = 0
+  for (const player of players) {
+    pointSum += player.totalPoints;
+  }
 
   if (greyedOutPlayers !== undefined) {
     console.log('greyedOutPlayers', greyedOutPlayers)
