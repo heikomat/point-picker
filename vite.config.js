@@ -13,7 +13,7 @@ module.exports = defineConfig({
   define: {
     "process.env.NODE_ENV": `"${process.env.NODE_ENV}"`,
     "process.env.PUBLIC_URL": process.env.NODE_ENV === 'production'
-      ? '"https://point-picker.basketbears.com"'
+      ? '"https://point-picker.basketbears.de"'
       : '"http://localhost:5173"'
   }
 })
