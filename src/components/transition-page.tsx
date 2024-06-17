@@ -66,7 +66,7 @@ export function TransitionPage(props: Props) {
   const newGame = [
     ...(currentGame as Array<Player>)?.filter((player) => {
       return !playersOutNumbers.has(player.number)
-    }),
+    }) ?? {},
     ...playersIn,
   ];
 

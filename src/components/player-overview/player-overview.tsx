@@ -1,5 +1,5 @@
 import { Player, playerCanBeSelected, players } from "../../contracts";
-import { ReactElement, useContext, useEffect } from "react";
+import { ReactElement, useContext } from "react";
 import { Flex, Grid } from "@chakra-ui/react";
 import { OverviewPlayer, overviewPlayerWidth } from "./overview-player";
 import { PlayerSelectionContext } from "../../player-selection-context";
@@ -43,12 +43,12 @@ export const PlayerOverview = (): ReactElement => {
       })
       return [points, nonInactivePlayers];
     })
-    .filter(([points, players]) => {
+    .filter(([, players]) => {
       return players.length > 0;
     })
     .sort(([points1], [points2]) => {
       return parseFloat(points2) - parseFloat(points1);
-    });
+    })
 
   const selectedPlayerNumbers = new Set(selectedPlayers.map(numberFromPLayer));
 
@@ -112,7 +112,7 @@ export const PlayerOverview = (): ReactElement => {
           }
 
           return (
-            <AnimatePresence>
+            <AnimatePresence key={points}>
               <MotionBox display="flex" layout key={points} flexDirection="column" width={`calc(${blockWidth}% - 0.75rem)`} {...playerBlock} {...scaleAnimation} padding="5px" gap="0.5rem" >
                 <Flex justifyContent="start" fontWeight="bold" width="100%">{points + ' Pt.'}</Flex>
                 <Grid templateColumns={`repeat(${columnsToOccupy}, 1fr)`} rowGap="0.5rem" alignItems="start" justifyItems="center">

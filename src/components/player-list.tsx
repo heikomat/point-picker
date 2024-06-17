@@ -19,7 +19,6 @@ export const PlayerList = (props: Props): ReactElement => {
   const {
     title,
     players = [],
-    footer,
     showPointSum = false,
     onPlayerClick,
     greyedOutPlayers = new Set(),
