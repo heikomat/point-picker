@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './App';
+import App from './app';
 import { ChakraProvider } from '@chakra-ui/react'
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import { ToastContainer } from 'react-toastify';
