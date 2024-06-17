@@ -1,5 +1,5 @@
 import { Player, playerCanBeSelected, players } from "../../contracts";
-import { ReactElement, useContext } from "react";
+import { ReactElement, useContext, useEffect } from "react";
 import { Flex, Grid } from "@chakra-ui/react";
 import { OverviewPlayer, overviewPlayerWidth } from "./overview-player";
 import { PlayerSelectionContext } from "../../player-selection-context";
@@ -61,7 +61,6 @@ export const PlayerOverview = (): ReactElement => {
       addPlayer?.(player);
     }
   };
-
 
   const windowWidth = useWindowWidth();
 
