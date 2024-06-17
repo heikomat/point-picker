@@ -86,43 +86,43 @@ export const players: Array<Player> = [{
   number: 25,
   image: mike,
   ...getName('Mike', 'Lausberg'),
-  ...getPointInfo(2.5, [Bonus.Beginner])
+  ...getPointInfo(2.5, [])
 }, {
   isDisabled: true,
   number: 3,
   image: richard,
   ...getName('Richard', 'Smets'),
-  ...getPointInfo(1, [Bonus.Beginner])
+  ...getPointInfo(1, [])
 }, {
   isDisabled: true,
   number: 12,
   image: yannik,
   ...getName('Yannik', 'Parthier'),
-  ...getPointInfo(2.5, [Bonus.Beginner])
+  ...getPointInfo(2.5, [])
 }, /*{
   isDisabled: true,
   number: 4,
   image: jana,
   ...getName('Jana', 'Bartlick'),
-  ...getPointInfo(2.5, [Bonus.Woman, Bonus.Beginner])
+  ...getPointInfo(2.5, [Bonus.Woman, ])
 },*/ {
   isDisabled: true,
   number: 19,
   image: robin,
   ...getName('Robin', 'Croonenbroeck'),
-  ...getPointInfo(2, [Bonus.Beginner])
+  ...getPointInfo(2, [])
 }, {
   isDisabled: true,
   number: 26,
   image: svenkuehne,
   ...getName('Sven', 'Kühne'),
-  ...getPointInfo(3, [Bonus.Beginner])
+  ...getPointInfo(3, [])
 }, {
   isDisabled: true,
   number: 7,
   image: svenkaiser,
   ...getName('Sven', 'Kaiser'),
-  ...getPointInfo(2.5, [Bonus.Beginner])
+  ...getPointInfo(2.5, [])
 }, {
   isDisabled: true,
   number: 6,
@@ -158,7 +158,7 @@ export const players: Array<Player> = [{
   number: 9,
   image: linda,
   ...getName('Linda', 'Hövel'),
-  ...getPointInfo(3, [Bonus.Woman, Bonus.Beginner])
+  ...getPointInfo(3, [Bonus.Woman, ])
 }, {
   isDisabled: true,
   number: 8,
