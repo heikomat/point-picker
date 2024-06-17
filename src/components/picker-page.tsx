@@ -50,9 +50,13 @@ export function PickerPage(props: Props) {
     return {
       initialSelectedPlayers: selectedPlayerNumbers.map((playerNumber: number) => {
         return playersByNumber[playerNumber]
+      }).filter((player: Player) => {
+        return player != null;
       }),
       initialInactivePlayers: inactivePlayerNumbers.map((playerNumber: number) => {
         return playersByNumber[playerNumber]
+      }).filter((player: Player) => {
+        return player != null;
       }),
       initialIsLocked: isLocked,
     };

@@ -1,15 +1,15 @@
 import { Bonus, bonusPoints } from "./bonuses";
-import anna from '../assets/anna.webp';
+// import anna from '../assets/anna.webp';
 import mike from '../assets/mike.webp';
 import richard from '../assets/richard.webp';
 import yannik from '../assets/yannik.webp';
-import jana from '../assets/jana.webp';
+// import jana from '../assets/jana.webp';
 import robin from '../assets/robin.webp';
 import svenkuehne from '../assets/svenkuehne.webp';
 import svenkaiser from '../assets/svenkaiser.webp';
 import johannes from '../assets/johannes.webp';
 import heiko from '../assets/heiko.webp';
-import jakobus from '../assets/jakobus.webp';
+// import jakobus from '../assets/jakobus.webp';
 import philippe from '../assets/philippe.webp';
 import linda from '../assets/linda.webp';
 import jill from '../assets/jill.webp';
@@ -99,13 +99,13 @@ export const players: Array<Player> = [{
   image: yannik,
   ...getName('Yannik', 'Parthier'),
   ...getPointInfo(2.5, [Bonus.Beginner])
-}, {
+}, /*{
   isDisabled: true,
   number: 4,
   image: jana,
   ...getName('Jana', 'Bartlick'),
   ...getPointInfo(2.5, [Bonus.Woman, Bonus.Beginner])
-}, {
+},*/ {
   isDisabled: true,
   number: 19,
   image: robin,
@@ -135,25 +135,25 @@ export const players: Array<Player> = [{
   image: heiko,
   ...getName('Heiko', 'Mathes'),
   ...getPointInfo(4.5, [])
-}, {
+}, /*{
   isDisabled: false,
   number: 15,
   image: jakobus,
   ...getName('Jakobus', 'von Lengerke'),
   ...getPointInfo(4.5, [])
-}, {
+}, */{
   isDisabled: false,
   number: 11,
   image: philippe,
   ...getName('Philippe', 'Parthier'),
   ...getPointInfo(4.5, [])
-}, {
+},/* {
   isDisabled: false,
   number: 10,
   image: anna,
   ...getName('Anna', 'Bartlick'),
   ...getPointInfo(4.5, [Bonus.Woman])
-}, {
+}, */{
   isDisabled: true,
   number: 9,
   image: linda,
