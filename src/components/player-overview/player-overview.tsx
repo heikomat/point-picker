@@ -1,5 +1,5 @@
 import { Player, playerCanBeSelected, players } from "../../contracts";
-import { memo, ReactElement, useContext } from "react";
+import { ReactElement, useContext } from "react";
 import { Flex, Grid } from "@chakra-ui/react";
 import { OverviewPlayer, overviewPlayerWidth } from "./overview-player";
 import { PlayerSelectionContext } from "../../player-selection-context";
@@ -20,7 +20,7 @@ for (const player of players) {
   playersByPoints[player.totalPoints].push(player);
 }
 
-const PlayerOverviewComponent = (): ReactElement => {
+export const PlayerOverview = (): ReactElement => {
 
   const {addPlayer, selectedPlayers, removePlayer, makePlayerInactive, inactivePlayers} = useContext(PlayerSelectionContext);
 
@@ -129,5 +129,3 @@ const PlayerOverviewComponent = (): ReactElement => {
     </Flex>
   );
 };
-
-export const PlayerOverview = memo(PlayerOverviewComponent);

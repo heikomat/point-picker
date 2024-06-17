@@ -1,5 +1,5 @@
 import { Box, BoxProps, Flex } from "@chakra-ui/react";
-import { memo, ReactElement } from "react";
+import { ReactElement } from "react";
 import { Player } from "../contracts";
 import { MotionBox } from "./motion-box";
 import { PlayerListPlayer } from "./player-list-player";
@@ -15,7 +15,7 @@ type Props = BoxProps & {
   showAsOld?: boolean
 }
 
-const PlayerListComponent = (props: Props): ReactElement => {
+export const PlayerList = (props: Props): ReactElement => {
   const {
     title,
     players = [],
@@ -74,5 +74,3 @@ const PlayerListComponent = (props: Props): ReactElement => {
     </Flex>
   </Flex>
 };
-
-export const PlayerList = memo(PlayerListComponent);

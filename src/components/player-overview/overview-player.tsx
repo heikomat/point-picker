@@ -1,5 +1,5 @@
 import { Box } from "@chakra-ui/react";
-import { memo, ReactElement } from "react";
+import { ReactElement } from "react";
 import { Player } from "../../contracts";
 import { PlayerPicture } from "../player-picture";
 import { useLongPress } from 'use-long-press';
@@ -19,7 +19,7 @@ type Props = {
 
 export const overviewPlayerWidth = 64;
 
-const OverviewPlayerComponent = (props: Props): ReactElement => {
+export const OverviewPlayer = (props: Props): ReactElement => {
   const {
     player,
     onClick,
@@ -88,5 +88,3 @@ const OverviewPlayerComponent = (props: Props): ReactElement => {
     </AnimatePresence>
   );
 };
-
-export const OverviewPlayer = memo(OverviewPlayerComponent);

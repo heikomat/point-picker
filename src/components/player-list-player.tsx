@@ -1,5 +1,5 @@
 import { Box, BoxProps, Flex, Grid } from "@chakra-ui/react";
-import { memo, ReactElement } from "react";
+import { ReactElement } from "react";
 import { Player } from "../contracts";
 import { PlayerPicture } from "./player-picture";
 import { pxToRem } from "../scale";
@@ -12,7 +12,7 @@ type Props = BoxProps & {
   onPlayerClick?: (player: Player) => void;
 }
 
-const PlayerListPlayerComponent = (props: Props): ReactElement => {
+export const PlayerListPlayer = (props: Props): ReactElement => {
   const {
     player,
     isGreyedOut = false,
@@ -42,5 +42,3 @@ const PlayerListPlayerComponent = (props: Props): ReactElement => {
     </Grid>
   )
 };
-
-export const PlayerListPlayer = memo(PlayerListPlayerComponent);

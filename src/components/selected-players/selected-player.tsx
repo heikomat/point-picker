@@ -1,4 +1,4 @@
-import { memo, ReactElement } from "react";
+import { ReactElement } from "react";
 import { Player } from "../../contracts";
 import { PlayerPicture } from "../player-picture";
 import { AnimatePresence } from "framer-motion";
@@ -11,7 +11,7 @@ type Props = {
   isNew?: boolean;
 }
 
-const SelectedPlayerComponent = (props: Props): ReactElement => {
+export const SelectedPlayer = (props: Props): ReactElement => {
   const {player, onClick, isNew} = props;
 
   const handleClick = () => {
@@ -39,5 +39,3 @@ const SelectedPlayerComponent = (props: Props): ReactElement => {
     </AnimatePresence>
   );
 };
-
-export const SelectedPlayer = memo(SelectedPlayerComponent);

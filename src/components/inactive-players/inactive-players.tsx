@@ -1,5 +1,5 @@
 import { Collapse, Flex, Grid, useDisclosure } from "@chakra-ui/react";
-import { memo, ReactElement } from "react";
+import { ReactElement } from "react";
 import { Player } from "../../contracts";
 import { OverviewPlayer } from "../player-overview/overview-player";
 import { pxToRem } from "../../scale";
@@ -11,7 +11,7 @@ type Props = {
   makePlayerActive?: (player: Player) => void;
 }
 
-const InactivePlayersComponent = (props: Props): ReactElement => {
+export const InactivePlayers = (props: Props): ReactElement => {
   const {inactivePlayers = [], makePlayerActive} = props;
   const { isOpen, onToggle } = useDisclosure()
 
@@ -30,5 +30,3 @@ const InactivePlayersComponent = (props: Props): ReactElement => {
       </Flex>
   );
 };
-
-export const InactivePlayers = memo(InactivePlayersComponent);

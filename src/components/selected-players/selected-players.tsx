@@ -1,5 +1,5 @@
 import { Box, Flex } from "@chakra-ui/react";
-import { memo, ReactElement } from "react";
+import { ReactElement } from "react";
 import { playerBlock } from "../../assets/styles";
 import { Player } from "../../contracts";
 import { SelectedPlayer } from "./selected-player";
@@ -14,7 +14,7 @@ type Props = {
   newPlayerNumbers?: Set<number>;
 }
 
-const SelectedPlayersComponent = (props: Props): ReactElement => {
+export const SelectedPlayers = (props: Props): ReactElement => {
   const {
     selectedPlayers,
     removePlayer,
@@ -98,5 +98,3 @@ const SelectedPlayersComponent = (props: Props): ReactElement => {
 
   );
 };
-
-export const SelectedPlayers = memo(SelectedPlayersComponent);

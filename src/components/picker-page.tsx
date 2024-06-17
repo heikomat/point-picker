@@ -1,5 +1,5 @@
 import { Button, Flex } from "@chakra-ui/react";
-import { memo, useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { PlayerOverview } from "./player-overview/player-overview";
 import { SelectedPlayers } from "./selected-players/selected-players";
 import { Player, playerCanBeSelected, players } from "../contracts";
@@ -30,7 +30,7 @@ const motionConfig = {
   ease: 'easeInOut',
 };
 
-function PickerPageComponent(props: Props) {
+export function PickerPage(props: Props) {
   const {page, title} = props;
 
   const {startTransition, lastAppliedTransition} = useContext(GameTransitionContext);
@@ -175,5 +175,3 @@ function PickerPageComponent(props: Props) {
     </MotionConfig>
   );
 }
-
-export const PickerPage = memo(PickerPageComponent)

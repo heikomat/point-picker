@@ -1,5 +1,5 @@
 import { Box } from "@chakra-ui/react";
-import { memo, ReactElement } from "react";
+import { ReactElement } from "react";
 import { Player } from "../contracts";
 import placeholder from '../assets/placeholder.webp';
 import { pxToRem } from "../scale";
@@ -15,7 +15,7 @@ const imageStyle = {
   aspectRatio: 1,
 }
 
-const PlayerPictureComponent = (props: Props): ReactElement => {
+export const PlayerPicture = (props: Props): ReactElement => {
   const {player, showNumber = true, isNew = false, isOld = false} = props;
 
   let borderStyle = isNew ? `${pxToRem(3)}rem solid #2ec61f` : `1px solid #7e8cef`;
@@ -52,5 +52,3 @@ const PlayerPictureComponent = (props: Props): ReactElement => {
     </Box>
   );
 };
-
-export const PlayerPicture = memo(PlayerPictureComponent);

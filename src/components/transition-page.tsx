@@ -1,5 +1,5 @@
 import { Button, Flex, Grid } from "@chakra-ui/react";
-import { memo, useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { playerBlock } from "../assets/styles";
 import { Player, playerCanBeSelected, players, playersAreValidTeam } from "../contracts";
 import { GameTransitionContext } from "../game-transition-context";
@@ -12,7 +12,7 @@ type Props = {
   game?: Game
 }
 
-function TransitionPageComponent(props: Props) {
+export function TransitionPage(props: Props) {
   const {game} = props;
 
   const {applyTransition} = useContext(GameTransitionContext);
@@ -154,5 +154,3 @@ function TransitionPageComponent(props: Props) {
     </Grid>
   );
 }
-
-export const TransitionPage = memo(TransitionPageComponent)
