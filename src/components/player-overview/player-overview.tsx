@@ -1,4 +1,4 @@
-import { Player, playerCanBeSelected, players } from "../../contracts";
+import { Player, playerCanBeSelected, players, scaleAnimation } from "../../contracts";
 import { ReactElement, useContext } from "react";
 import { Flex, Grid } from "@chakra-ui/react";
 import { OverviewPlayer, overviewPlayerWidth } from "./overview-player";
@@ -7,7 +7,6 @@ import { numberFromPLayer } from "../../tools";
 import { playerBlock } from "../../assets/styles";
 import { MotionBox } from "../motion-box";
 import { AnimatePresence } from "framer-motion";
-import { scaleAnimation } from "../../contracts/scale-animation";
 import { useScale } from "../../scale";
 import { useWindowWidth } from "../../use-window-width";
 

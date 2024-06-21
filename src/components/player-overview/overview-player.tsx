@@ -1,11 +1,10 @@
 import { Box } from "@chakra-ui/react";
 import { ReactElement } from "react";
-import { Player } from "../../contracts";
+import { Player, scaleAnimation } from "../../contracts";
 import { PlayerPicture } from "../player-picture";
 import { useLongPress } from 'use-long-press';
 import { MotionBox } from "../motion-box";
 import { AnimatePresence } from "framer-motion";
-import { scaleAnimation } from "../../contracts/scale-animation";
 import { pxToRem } from "../../scale";
 
 type Props = {

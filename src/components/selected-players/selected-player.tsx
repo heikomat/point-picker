@@ -1,9 +1,8 @@
 import { ReactElement } from "react";
-import { Player } from "../../contracts";
+import { Player, scaleAnimation } from "../../contracts";
 import { PlayerPicture } from "../player-picture";
 import { AnimatePresence } from "framer-motion";
 import { MotionBox } from "../motion-box";
-import { scaleAnimation } from "../../contracts/scale-animation";
 
 type Props = {
   player: Player;
