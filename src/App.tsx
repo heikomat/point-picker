@@ -73,7 +73,7 @@ function App() {
             <TabList>
               <Tab className="main-tab">Spiel 1</Tab>
               <Tab className="main-tab">Spiel 2</Tab>
-              <Tab className="main-tab">Test</Tab>
+              <Tab className="main-tab">Teest</Tab>
               <Tab className="main-tab" whiteSpace="nowrap" isDisabled={currentTransitionGame === undefined}>{currentTransitionGame === undefined ? 'Transition' : `🔁 ${currentTransitionGame?.title}`}</Tab>
             </TabList>
 
@@ -85,7 +85,7 @@ function App() {
                 <PickerPage page="second-game" title="Spiel 2"/>
               </TabPanel>
               <TabPanel padding="0" height="100%">
-                <PickerPage page="playground" title="Teest"/>
+                <PickerPage page="playground" title="Teet"/>
               </TabPanel>
               <TabPanel padding="0" height="100%">
                 <TransitionPage game={currentTransitionGame} />
