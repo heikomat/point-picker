@@ -19,6 +19,9 @@ module.exports = defineConfig({
     }),
     VitePWA({
       registerType: 'autoUpdate',
+      strategies: 'injectManifest',
+      srcDir: 'src',
+      filename: 'service-worker.ts',
       workbox: {
         globPatterns: ['**/*.{js,css,html,png,jpg,svg,ico}'],
       },
