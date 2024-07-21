@@ -8,7 +8,7 @@ import { registerSW } from 'virtual:pwa-register';
 
 import 'react-toastify/dist/ReactToastify.css';
 
-console.log('test');
+console.log('test2');
 
 registerSW({
   onNeedRefresh() {
