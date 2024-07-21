@@ -8,6 +8,8 @@ import { registerSW } from 'virtual:pwa-register';
 
 import 'react-toastify/dist/ReactToastify.css';
 
+console.log('test');
+
 registerSW({
   onNeedRefresh() {
     toast.info('Update verfügbar! Neu laden um zu aktualisieren.', {
@@ -20,6 +22,7 @@ registerSW({
   },
   onOfflineReady() {
     toast.info('App-Daten gespeichert. Sie ist jetzt offline nutzbar.', {
+      position: 'bottom-center',
       autoClose: 5000,
     });
   },
