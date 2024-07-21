@@ -20,7 +20,6 @@ registerSW({
   },
   onOfflineReady() {
     toast.info('App-Daten gespeichert. Sie ist jetzt offline nutzbar.', {
-      position: 'bottom-center',
       autoClose: 5000,
     });
   },
