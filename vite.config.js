@@ -23,7 +23,7 @@ module.exports = defineConfig({
       srcDir: 'src',
       filename: 'service-worker.ts',
       workbox: {
-        globPatterns: ['**/*.{js,css,html,png,jpg,svg,ico}'],
+        globPatterns: ['**/*.{js,css,html,png,jpg,svg,ico,webp}'],
       },
       includeAssets: ['favicon.ico', 'robots.txt', 'apple-touch-icon.png'],
       manifest: manifest,

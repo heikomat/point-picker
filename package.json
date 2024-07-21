@@ -4,8 +4,8 @@
   "private": true,
   "dependencies": {
     "@chakra-ui/react": "2.8.2",
-    "@emotion/react": "11.11.4",
-    "@emotion/styled": "11.11.5",
+    "@emotion/react": "11.13.0",
+    "@emotion/styled": "11.13.0",
     "@types/node": "20.14.3",
     "@types/react": "npm:types-react@rc",
     "@types/react-dom": "npm:types-react-dom@rc",
@@ -19,18 +19,11 @@
     "use-long-press": "3.2.0",
     "vite-plugin-pwa": "^0.20.0",
     "web-vitals": "4.1.1",
-    "workbox-background-sync": "7.1.0",
-    "workbox-broadcast-update": "7.1.0",
-    "workbox-cacheable-response": "7.1.0",
     "workbox-core": "7.1.0",
     "workbox-expiration": "7.1.0",
-    "workbox-google-analytics": "7.1.0",
-    "workbox-navigation-preload": "7.1.0",
     "workbox-precaching": "7.1.0",
-    "workbox-range-requests": "7.1.0",
     "workbox-routing": "7.1.0",
-    "workbox-strategies": "7.1.0",
-    "workbox-streams": "7.1.0"
+    "workbox-strategies": "7.1.0"
   },
   "scripts": {
     "start": "vite",
