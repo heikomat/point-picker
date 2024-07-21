@@ -22,6 +22,7 @@ clientsClaim();
 // This variable must be present somewhere in your service worker file,
 // even if you decide not to use precaching. See https://cra.link/PWA
 cleanupOutdatedCaches()
+console.log('Service Worker!', self, self.__WB_MANIFEST);
 precacheAndRoute(self.__WB_MANIFEST);
 
 // Set up App Shell-style routing, so that all navigation requests
