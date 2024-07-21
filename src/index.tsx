@@ -2,7 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
 import { ChakraProvider } from '@chakra-ui/react'
-import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import { ToastContainer } from 'react-toastify';
 import { toast } from 'react-toastify';
 
@@ -48,6 +47,3 @@ root.render(
     </ChakraProvider>
   </React.StrictMode>
 );
-
-
-serviceWorkerRegistration.register();
