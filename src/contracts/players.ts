@@ -5,9 +5,7 @@ import yannik from '../assets/yannik.webp';
 import robin from '../assets/robin.webp';
 import svenkuehne from '../assets/svenkuehne.webp';
 import svenkaiser from '../assets/svenkaiser.webp';
-import johannes from '../assets/johannes.webp';
 import heiko from '../assets/heiko.webp';
-import philippe from '../assets/philippe.webp';
 import linda from '../assets/linda.webp';
 import jill from '../assets/jill.webp';
 import andre from '../assets/andre.webp';
@@ -117,22 +115,10 @@ export const players: Array<Player> = [{
   ...getName('Sven', 'Kaiser'),
   ...getPointInfo(2.5, [])
 }, {
-  isDisabled: true,
-  number: 6,
-  image: johannes,
-  ...getName('Johannes', 'von Heereman'),
-  ...getPointInfo(4, [])
-}, {
   isDisabled: false,
   number: 21,
   image: heiko,
   ...getName('Heiko', 'Mathes'),
-  ...getPointInfo(4.5, [])
-}, {
-  isDisabled: false,
-  number: 11,
-  image: philippe,
-  ...getName('Philippe', 'Parthier'),
   ...getPointInfo(4.5, [])
 }, {
   isDisabled: true,
