@@ -136,7 +136,7 @@ export const players: Array<Player> = [{
   isDisabled: false,
   number: 22,
   image: andre,
-  ...getName('André', 'Kostka'),
+  ...getName('Andre', 'Kostka'),
   ...getPointInfo(4.5, [])
 }, {
   isDisabled: true,
