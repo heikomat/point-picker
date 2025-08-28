@@ -14,7 +14,6 @@ import jarne from '../assets/jarne.webp';
 import sylvester from '../assets/sylvester.webp';
 import sascha from '../assets/sascha.webp';
 import patrick_k from '../assets/patrick_k.webp';
-import luis from '../assets/luis.webp';
 import martha from '../assets/martha.webp';
 import ahmed from '../assets/ahmed.webp';
 import noel from '../assets/noel.webp';
@@ -171,12 +170,6 @@ export const players: Array<Player> = [{
   ...getPointInfo(3.0, [])
 }, {
   isDisabled: true,
-  number: 16,
-  image: luis,
-  ...getName('Luis', 'Trenk'),
-  ...getPointInfo(4.0, [])
-}, {
-  isDisabled: true,
   number: 24,
   image: martha,
   ...getName('Martha', 'Schuren'),
@@ -189,7 +182,7 @@ export const players: Array<Player> = [{
   ...getPointInfo(2.5, [Bonus.Youth])
 }, {
   isDisabled: false,
-  number: -1,
+  number: 17,
   image: noel,
   ...getName('Noel', 'Meyer'),
   ...getPointInfo(4.5, [])
