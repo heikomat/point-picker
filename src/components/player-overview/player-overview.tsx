@@ -53,10 +53,10 @@ export const PlayerOverview = (): ReactElement => {
 
   const handlePlayerClick = (player: Player) => {
     if (selectedPlayerNumbers.has(player.number)) {
-      window.navigator.vibrate(10);
+      window.navigator.vibrate?.(10);
       removePlayer?.(player)
     } else if (selectablePlayerNumbers.has(player.number)) {
-      window.navigator.vibrate(10);
+      window.navigator.vibrate?.(10);
       addPlayer?.(player);
     }
   };

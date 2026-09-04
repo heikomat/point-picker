@@ -22,7 +22,7 @@ export const PlayerListPlayer = (props: Props): ReactElement => {
   } = props;
 
   const handleClick = () => {
-    window.navigator.vibrate(10);
+    window.navigator.vibrate?.(10);
     onPlayerClick?.(player);
   };
 

@@ -32,7 +32,7 @@ export const SelectedPlayers = (props: Props): ReactElement => {
   }
 
   const handleClick = (player: Player) => {
-    window.navigator.vibrate(10);
+    window.navigator.vibrate?.(10);
     removePlayer?.(player);
   };
 
